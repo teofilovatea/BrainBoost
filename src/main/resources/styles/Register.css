@@ -1,0 +1,142 @@
+body{
+    width: 1200px;
+    height: 1024px;
+}
+.register_page{
+    width: 1200px;
+    height: 1024px;
+}
+.Sign_up{
+    width: 514px;
+    height: 59px;
+    position: relative;
+    left: 1100px;
+    bottom: 570px;
+}
+.Sign_up p{
+    position: relative;
+    left: 150px;
+    bottom: 80px;
+    font-size: 40px;
+}
+.Sign_up #desno{
+    position: relative;
+    left: 340px;
+    bottom: 144px;
+}
+#img1{
+    position: relative;
+    bottom: 620px;
+    right: 60px;
+}
+#img2{
+    position: relative;
+    top: 78px;
+    right: 175px;
+}
+#img3{
+    position: relative;
+    bottom: 630px;
+    left: 195px;
+}
+.Information{
+    width: 250px;
+    height: auto;
+    text-align: center;
+    font-size: 25px;
+    position: relative;
+    left: 1170px;
+    bottom: 600px;
+}
+.Information .Frame1{
+    position: relative;
+    top: 10px;
+    left: 40px;
+    text-align: center;
+}
+#createaccbtn{
+    width: 170px;
+    height: 60px;
+    background-color: #141C65;
+    color: white;
+    font-size: 22px;
+    border-radius: 10px;
+    position: relative;
+    left: 1250px;
+    bottom: 560px;
+}
+#loginbtn{
+    width: 100px;
+    height: 30px;
+    background-color: #141C65;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    position: relative;
+    left: 1110px;
+    bottom: 490px;
+}
+.Agreement{
+    position: relative;
+    left: 1150px;
+    bottom: 610px;
+    font-size: 15px;
+    width: 430px;
+}
+
+.Username .edit_light{
+    position: relative;
+    left: 170px;
+    top: 20px;
+}
+.Username .vector{
+    position: relative;
+    right: 100px;
+    bottom: 50px;
+}
+.Username .Frame1{
+    position: relative;
+    top: 45px;
+}
+.Email .edit_light{
+    position: relative;
+    left: 170px;
+    top: 20px;
+}
+.Email .Frame1{
+    position: relative;
+    top: 45px;
+}
+.Email .mail{
+    position: relative;
+    right: 100px;
+    bottom: 40px;
+}
+.Password .view{
+    position: relative;
+    left: 170px;
+    top: 20px;
+}
+.Password .closed{
+    position: relative;
+    right: 100px;
+    bottom: 50px;
+}
+.Password .Frame1{
+    position: relative;
+    top: 45px;
+}
+.CPassword .view{
+    position: relative;
+    left: 170px;
+    top: 20px;
+}
+.CPassword .opened{
+    position: relative;
+    right: 100px;
+    bottom: 50px;
+}
+.CPassword .Frame1{
+    position: relative;
+    top: 45px;
+}
