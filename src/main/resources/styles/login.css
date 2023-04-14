@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Jura&display=swap');
+
+.login-container {
+    font-family: "Inika";
+}
+.body{
+    min-height: 100vh;
+}
+.small_logo {
+    /*background-image: url("../images/login_images/logo.png");*/
+    width: 80px;
+    height:80px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.login_img {
+    bottom: 20px;
+    width: 60%;
+}
+
+.input-icons img {
+    position: absolute;
+}
+
+.input-icons {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.w-90 {
+    width: 90%;
+}
+.w-60{
+    width: 60%;
+}
+.w-45{
+    width: 45%;
+}
+
+.icon {
+    padding: 10px;
+    /*color: black;*/
+    width: 50px;
+    /*text-align: center;*/
+    margin-left: -1%;
+
+}
+
+.second-icon {
+    padding: 10px;
+    right: 29%;
+    width: 45px;
+    /*margin-top: 10px;*/
+    text-align: center;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    border: none;
+    border-bottom: 1px solid black;
+
+}
+
+h2 {
+    color: green;
+}
+
+.remember_checkbox {
+    width: 24px;
+    accent-color: #D9D9D9;
+    color: red;
+    height: 24px;
+}
+
+.button_blue_color {
+    background-color: #141C65;
+    border-radius: 15px;
+    border-color: #141C65;
+    border: none;
+}
+
+.login_button {
+    width: 150px;
+    height: 50px;
+    font-size: 30px;
+}
+.sign_button{
+    font-size: 20px;
+}
