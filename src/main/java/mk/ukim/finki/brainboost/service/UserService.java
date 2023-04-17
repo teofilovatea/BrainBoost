@@ -4,6 +4,6 @@ import mk.ukim.finki.brainboost.domain.User;
 import mk.ukim.finki.brainboost.domain.enumerations.Role;
 
 public interface UserService {
-    void register(String username, String password, String repeatPassword, String firstName, String lastName, String email, String mobile, Role role);
+    void register(String username, String password, String repeatPassword, String firstName, String lastName, String email);
     User login(String username, String password);
 }
