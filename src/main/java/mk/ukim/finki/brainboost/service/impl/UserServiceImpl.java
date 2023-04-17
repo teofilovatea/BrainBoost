@@ -8,11 +8,16 @@ import mk.ukim.finki.brainboost.domain.exceptions.PasswordsDoNotMatchException;
 import mk.ukim.finki.brainboost.domain.exceptions.UserAlreadyExistsException;
 import mk.ukim.finki.brainboost.repository.UserRepository;
 import mk.ukim.finki.brainboost.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -32,7 +37,10 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException(username);
         }
 
-        User user = new User(firstName, lastName, email, username, password);
+        String encodedPassword = passwordEncoder.encode(password);
+        User user = new User(firstName, lastName, email, username, encodedPassword);
+
+        //User user = new User(firstName, lastName, email, username, password);
         userRepository.save(user);
     }
 
