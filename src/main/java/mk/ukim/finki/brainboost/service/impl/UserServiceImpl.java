@@ -1,7 +1,6 @@
 package mk.ukim.finki.brainboost.service.impl;
 
 import mk.ukim.finki.brainboost.domain.User;
-import mk.ukim.finki.brainboost.domain.enumerations.Role;
 import mk.ukim.finki.brainboost.domain.exceptions.InvalidArgumentsException;
 import mk.ukim.finki.brainboost.domain.exceptions.InvalidUserCredentialsException;
 import mk.ukim.finki.brainboost.domain.exceptions.PasswordsDoNotMatchException;
@@ -39,8 +38,6 @@ public class UserServiceImpl implements UserService {
 
         String encodedPassword = passwordEncoder.encode(password);
         User user = new User(firstName, lastName, email, username, encodedPassword);
-
-        //User user = new User(firstName, lastName, email, username, password);
         userRepository.save(user);
     }
 
@@ -56,6 +53,5 @@ public class UserServiceImpl implements UserService {
             throw new InvalidUserCredentialsException();
         }
         return user;
-        //return userRepository.findByUsernameAndPassword(username, password).orElseThrow(InvalidUserCredentialsException::new);
     }
 }
