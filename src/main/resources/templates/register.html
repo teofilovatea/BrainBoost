@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link rel="stylesheet" th:href="@{/styles/login.css}">
+    <link rel="stylesheet" th:href="@{/styles/login_register.css}">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
@@ -18,7 +18,7 @@
     <img th:src="@{/images/home_images/logo.png}">
     <div class="d-flex justify-content-center pb-0">
         <div class="col-6  d-flex justify-content-center">
-            <img class="ml-5 login_img" th:src="@{/images/register_images/main_image.png}">
+            <img class="ml-5 register_img" th:src="@{/images/register_images/main_image.png}">
         </div>
         <div class="col-md-6 col-lg-6 d-flex mt-3 justify-content-center">
             <div class="card-body text-black">
@@ -47,18 +47,13 @@
                             <img th:src="@{/images/register_images/lock.png}" class="icon">
                             <input class="input-field" name="password" id="password" placeholder="Password" type="password">
                         </div>
-                        <div class="form-outline w-45 mx-auto mb-5">
+                        <div class="form-outline w-45 mx-auto mb-3">
                             <img th:src="@{/images/register_images/lock.png}" class="icon">
                             <input class="input-field" name="repeatedPassword" id="repeatedPassword" placeholder="Confirm Password" type="password">
                         </div>
                         <div th:text="${param.error}" class="text-danger"></div>
-                        <div class="w-45 pl-1 d-flex align-items-center mx-auto">
-                            <input type="checkbox" class=" remember_checkbox mr-3">
-                            <div class="mr-auto">Remember me</div>
-                            <a class=" text-dark" href="#!">Forgot password?</a>
-                        </div>
                     </div>
-                    <div class="pt-5 w-50  d-flex justify-content-center mx-auto mb-3">
+                    <div class="pt-5 w-50  d-flex justify-content-center mx-auto mb-1">
                         <button class="button_blue_color text-white register_button" type="submit">Create Account</button>
                     </div>
                 </form>
