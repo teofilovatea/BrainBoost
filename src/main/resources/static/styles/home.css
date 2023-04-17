@@ -16,6 +16,7 @@ body {
 .background {
     background-image: url('static/images/home_images/background.jpg');
     background-size: cover;
+    background-color: #141C65;
     background-position: center center;
     filter: brightness(40%);
     position: fixed;
@@ -53,7 +54,7 @@ main {
     color: white;
     text-decoration: none;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .login-btn:hover {
@@ -69,8 +70,8 @@ main {
     color: white;
     border-radius: 8px;
     width: 100px;
-    height: 25px;
-    font-size: 15px;
+    height: 30px;
+    font-size: 20px;
     cursor: pointer;
 }
 
