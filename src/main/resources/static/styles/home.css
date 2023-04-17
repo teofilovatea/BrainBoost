@@ -27,6 +27,10 @@ body {
     z-index: -1;
 }
 
+.background>img {
+    width: 100vw;
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -47,14 +51,19 @@ main {
     text-align: center;
 }
 
+.btn-container {
+    display: flex;
+    gap: 1rem;
+}
+
 .login-btn {
     font-family: 'Jura', sans-serif;
     border: none;
-    background: none;
     color: white;
     text-decoration: none;
     cursor: pointer;
     font-size: 20px;
+    padding: 5px 10px;
 }
 
 .login-btn:hover {
@@ -69,10 +78,10 @@ main {
     border: none;
     color: white;
     border-radius: 8px;
-    width: 100px;
-    height: 30px;
     font-size: 20px;
     cursor: pointer;
+    padding: 5px 10px;
+    text-decoration: none;
 }
 
 .register-btn:hover {
