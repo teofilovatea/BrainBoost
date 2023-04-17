@@ -14,7 +14,7 @@ body {
 }
 
 .background {
-    background-image: url('../images/home_images/background.jpg');
+    background-image: url('static/images/home_images/background.jpg');
     background-size: cover;
     background-position: center center;
     filter: brightness(40%);

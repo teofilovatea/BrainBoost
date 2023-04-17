@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(String username, String password, String repeatPassword, String firstName, String lastName, String email, String mobile, Role role) {
+    public void register(String username, String password, String repeatPassword, String firstName, String lastName, String email) {
         if (username == null || username.isEmpty() || password == null || password.isEmpty()
                 || firstName == null || firstName.isEmpty() || lastName == null
                 || lastName.isEmpty() || email == null || email.isEmpty()) {
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException(username);
         }
 
-        User user = new User(firstName, lastName, mobile, email, username, password, role);
+        User user = new User(firstName, lastName, email, username, password);
         userRepository.save(user);
     }
 
