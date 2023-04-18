@@ -26,8 +26,7 @@ public class RegisterController {
             model.addAttribute ("hasError", true);
             model.addAttribute ("error", error);
         }
-        model.addAttribute ("bodyContent", "register");
-        return "master-template";
+        return "register";
     }
 
     @PostMapping
@@ -36,11 +35,9 @@ public class RegisterController {
                             @RequestParam String repeatedPassword,
                             @RequestParam String name,
                             @RequestParam String surname,
-                            @RequestParam String mobile,
-                            @RequestParam String email,
-                            @RequestParam Role role) {
+                            @RequestParam String email) {
         try {
-            this.userService.register (username, password, repeatedPassword, name, surname, email, mobile, role);
+            this.userService.register(username, password, repeatedPassword, name, surname, email);
             return "redirect:/login";
         } catch (InvalidArgumentsException | PasswordsDoNotMatchException exception) {
             return "redirect:/register?error=" + exception.getMessage ();

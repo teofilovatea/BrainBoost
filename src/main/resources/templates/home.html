@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>WELCOME PAGE</title>
-    <link rel="stylesheet" href="../styles/home.css">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/styles/home.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 <header>
-    <img src="../images/home_images/logo.png" alt="logo">
-    <div>
-        <button class="login-btn">Log in</button>
-        <button class="register-btn">Register</button>
+    <img th:src="@{/images/home_images/logo.png}" alt="background">
+    <div class="btn-container">
+        <a class="login-btn" th:href="@{/login}">Log in</a>
+        <a class="register-btn" th:href="@{/register}">Register</a>
     </div>
 </header>
-<div class="background"></div>
+<div class="background"><img th:src="@{/images/home_images/background.jpg}" alt="logo"></div>
 <main>
     <div class="phrase"> Free Online <br> Courses For <br> <span class="word">Everyone</span></div>
     <br>
     <button class="btn">Start learning now</button>
     <div class="image-container">
-        <img src="../images/home_images/cap.png">
-        <img src="../images/home_images/clock.png">
-        <img src="../images/home_images/people.png">
+        <img th:src="@{/images/home_images/cap.png}">
+        <img th:src="@{/images/home_images/clock.png}">
+        <img th:src="@{/images/home_images/people.png}">
     </div>
     <div class="text-container">
         <span> 10+ <br> courses </span> <br>
@@ -34,7 +34,7 @@
     <div class="social-media-icons">
         <i class="fa-brands fa-twitter" style="color: #ffffff;"></i>
         <i class="fa-brands fa-youtube" style="color: #ffffff;"></i>
-        <a href="https://github.com/teofilovatea/BrainBoost" target="_blank"><i class="fa-brands fa-github" style="color: #ffffff;"></i></a>
+        <a th:href="@{https://github.com/teofilovatea/BrainBoost}" target="_blank"><i class="fa-brands fa-github" style="color: #ffffff;"></i></a>
     </div>
     &copy; 2023 <span class="word">Brain</span>Boost. All Rights Reserved
 </footer>

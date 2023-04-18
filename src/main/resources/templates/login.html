@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+    <link rel="stylesheet" th:href="@{/styles/login_register.css}">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<div class="h-100 login-container pb-0">
+    <img th:src="@{/images/home_images/logo.png}">
+    <div class="d-flex justify-content-center pb-0">
+        <div class="col-6  d-flex justify-content-center">
+            <img class="ml-5 login_img" th:src="@{/images/login_images/login_images.png}">
+        </div>
+        <div class="col-md-6 col-lg-6 d-flex mt-3 justify-content-center">
+            <div class="card-body text-black">
+                <form action="/login" method="post">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <h3 class="display-4 text-center">Log in</h3>
+                    </div>
+                    <div class="input-icons">
+                        <div class="form-outline w-45 mx-auto mb-5">
+                            <img th:src="@{/images/login_images/username_icon.png}" class="icon">
+                            <input class="input-field" name="username" id="username" placeholder="Username" type="text">
+                        </div>
+                        <div class="form-outline w-45 mx-auto mb-4">
+                            <img th:src="@{/images/login_images/login_password_lock_icon.png}" class="icon">
+                            <input class="input-field" name="password" id="password" placeholder="Password" type="password">
+                        </div>
+                        <div th:text="${param.error}" class="text-danger"></div>
+                    </div>
+                    <div class="pt-5 w-50  d-flex justify-content-center mx-auto mb-3">
+                        <button class="button_blue_color text-white login_button" type="submit">Log in</button>
+                    </div>
+                </form>
+                <div class="d-flex container w-45 justify-content-center pt-4 pl-5 align-items-center">
+                    <div class=" mr-4"><b>Don't have an account?</b></div>
+                    <a th:href="@{/register}"> <button class="px-4 button_blue_color text-white py-0 sign_button" type="submit">Register</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

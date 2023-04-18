@@ -1,25 +1,29 @@
 package mk.ukim.finki.brainboost.service.impl;
 
 import mk.ukim.finki.brainboost.domain.User;
-import mk.ukim.finki.brainboost.domain.enumerations.Role;
 import mk.ukim.finki.brainboost.domain.exceptions.InvalidArgumentsException;
 import mk.ukim.finki.brainboost.domain.exceptions.InvalidUserCredentialsException;
 import mk.ukim.finki.brainboost.domain.exceptions.PasswordsDoNotMatchException;
 import mk.ukim.finki.brainboost.domain.exceptions.UserAlreadyExistsException;
 import mk.ukim.finki.brainboost.repository.UserRepository;
 import mk.ukim.finki.brainboost.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
-    public void register(String username, String password, String repeatPassword, String firstName, String lastName, String email, String mobile, Role role) {
+    public void register(String username, String password, String repeatPassword, String firstName, String lastName, String email) {
         if (username == null || username.isEmpty() || password == null || password.isEmpty()
                 || firstName == null || firstName.isEmpty() || lastName == null
                 || lastName.isEmpty() || email == null || email.isEmpty()) {
@@ -32,7 +36,8 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException(username);
         }
 
-        User user = new User(firstName, lastName, mobile, email, username, password, role);
+        String encodedPassword = passwordEncoder.encode(password);
+        User user = new User(firstName, lastName, email, username, encodedPassword);
         userRepository.save(user);
     }
 
@@ -41,6 +46,12 @@ public class UserServiceImpl implements UserService {
         if (username==null || username.isEmpty() || password==null || password.isEmpty()) {
             throw new InvalidArgumentsException();
         }
-        return userRepository.findByUsernameAndPassword(username, password).orElseThrow(InvalidUserCredentialsException::new);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(InvalidUserCredentialsException::new);
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new InvalidUserCredentialsException();
+        }
+        return user;
     }
 }
