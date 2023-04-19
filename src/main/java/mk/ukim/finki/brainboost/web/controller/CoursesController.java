@@ -25,8 +25,8 @@ public class CoursesController {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        List<Course> products = this.courseService.listAll();
-        model.addAttribute("products", products);
+        List<Course> courses = this.courseService.listAll();
+        model.addAttribute("courses", courses);
         return "all_courses";
     }
 
