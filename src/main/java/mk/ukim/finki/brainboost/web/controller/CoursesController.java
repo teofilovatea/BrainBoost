@@ -4,9 +4,7 @@ import mk.ukim.finki.brainboost.domain.Course;
 import mk.ukim.finki.brainboost.service.CourseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +27,33 @@ public class CoursesController {
         model.addAttribute("courses", courses);
         return "all_courses";
     }
+    @DeleteMapping("/delete/{id}")
+    public String deleteCourse(@PathVariable Long id) {
+        this.courseService.deleteById(id);
+        return "redirect:/all_courses";
+    }
+
+    @GetMapping("/add-form")
+    public String getAddCoursePage(Model model) {
+        model.addAttribute("bodyContent", "add-course");
+        return "add-course";
+    }
+
+    @PostMapping("/add")
+    public String addCourse(
+            @RequestParam String name,
+            @RequestParam Long categoryId,
+            @RequestParam String description,
+            @RequestParam String teacher,
+            @RequestParam String image,
+            @RequestParam String time) {
+
+        this.courseService.save(name,categoryId,description,teacher,image,time);
+
+        return "redirect:/all_courses";
+    }
+
+
+
 
 }
