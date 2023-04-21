@@ -95,9 +95,10 @@ main {
     border: 1px solid white;
     color: white;
     border-radius: 8px;
-    width: 200px;
-    height: 45px;
     font-size: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
     transition: transform 0.2s ease-in-out;
 }
 
