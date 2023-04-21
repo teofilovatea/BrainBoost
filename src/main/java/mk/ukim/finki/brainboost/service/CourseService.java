@@ -10,6 +10,8 @@ public interface CourseService {
 
     List<Course> listAll();
 
+    Optional<Course> findById(Long id);
+
     Optional<Course> save(String name, Long category, String description, String teacher, String image, String time);
 
     Optional<Course> edit(Long id, String name, Long category, String description,

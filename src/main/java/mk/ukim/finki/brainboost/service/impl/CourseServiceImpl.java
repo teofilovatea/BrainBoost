@@ -30,6 +30,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Optional<Course> findById(Long id) {
+        return this.courseRepository.findById(id);
+    }
+
+    @Override
     public Optional<Course> save(String name, Long categoryId, String description, String teacher, String image, String time) {
         Category category = this.categoryRepository.findById(categoryId)
                 .orElseThrow(()-> new CategoryNotFoundException(categoryId));

@@ -1,6 +1,8 @@
 package mk.ukim.finki.brainboost.web.controller;
 
+import mk.ukim.finki.brainboost.domain.Category;
 import mk.ukim.finki.brainboost.domain.Course;
+import mk.ukim.finki.brainboost.service.CategoryService;
 import mk.ukim.finki.brainboost.service.CourseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,11 @@ import java.util.List;
 @RequestMapping("/all_courses")
 public class CoursesController {
     private final CourseService courseService;
+    private final CategoryService categoryService;
 
-    public CoursesController(CourseService courseService) {
+    public CoursesController(CourseService courseService, CategoryService categoryService) {
         this.courseService = courseService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping
@@ -35,6 +39,8 @@ public class CoursesController {
 
     @GetMapping("/add-form")
     public String getAddCoursePage(Model model) {
+        List<Category> categories = this.categoryService.listAll();
+        model.addAttribute("categories", categories);
         model.addAttribute("bodyContent", "add-course");
         return "add-course";
     }
@@ -53,6 +59,17 @@ public class CoursesController {
         return "redirect:/all_courses";
     }
 
+    @GetMapping("/edit-form/{id}")
+    public String editCoursePage(@PathVariable Long id, Model model) {
+        if (this.courseService.findById(id).isPresent()) {
+            Course course = this.courseService.findById(id).get();
+            List<Category> categories = this.categoryService.listAll();
+            model.addAttribute("categories", categories);
+            model.addAttribute("course", course);
+            return "add-course";
+        }
+        return "redirect:/all_courses?error=ProductNotFound";
+    }
 
 
 
