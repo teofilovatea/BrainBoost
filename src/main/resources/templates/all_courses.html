@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Home</title>
+    <title>Course Catalog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/styles/all_courses.css}">
 </head>
@@ -11,7 +11,7 @@
     <header>
         <h1>Course Catalog</h1>
         <div class="right-header">
-            <button class="new-course-btn">+ NEW COURSE</button>
+            <a th:href="@{'/all_courses/add-form'}" class="new-course-btn">+ NEW COURSE</a>
             <div class="search-input"><input type="search" placeholder="search"><button><i class="fa-solid fa-magnifying-glass"></i></button></div>
             <button class="header-btn"><i class="fa-regular fa-bell"></i></button>
             <button class="header-btn"><i class="fa-solid fa-gear"></i></button>
@@ -25,17 +25,17 @@
         <a href="#">System administration</a>
     </div>
     <div class="sidebar">
-        <img th:src="@{/images/home_images/logo.png}" alt="logo" class="logo">
+        <a th:href="@{'/home'}"><img th:src="@{/images/home_images/logo.png}" alt="logo" class="logo"></a>
         <br>
-        <button class="active-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></button>
+        <a th:href="@{'/all_courses'}" class="active-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
         <br><br>
-        <button class="sidebar-btn"><i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></button>
-        <button class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></button>
-        <button class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></button>
+        <a class="sidebar-btn"><i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></a>
+        <a class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
+        <a class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
         <br><br>
         <div class="user-profile">
-            <button class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></button>
-            <button class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></button>
+            <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
+            <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
         </div>
     </div>
     <main>
