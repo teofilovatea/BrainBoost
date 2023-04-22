@@ -30,7 +30,7 @@ import static testUI.Utils.AppiumHelps.sleep;
 		E(byXpath("//button[text()=\"Log in\"]")).click(); // Clicks the button "Log in" and enters the main page.
 
 
-		sleep(60*1000); // the last page is opened for 1 minute.
+		sleep(60*1000); // the last page is opened for 1 minute..
 
 
 
