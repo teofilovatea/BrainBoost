@@ -94,7 +94,9 @@ header {
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.4);
     padding: 5px;
+    text-decoration: none;
 }
+
 
 .new-course-btn:hover {
     cursor: pointer;
@@ -142,7 +144,6 @@ main {
 }
 
 .sidebar-btn {
-    display: block;
     width: 55px;
     height: 55px;
     padding: 0;
@@ -151,6 +152,10 @@ main {
     border: none;
     background: none;
     font-size: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
 }
 
 .active-btn:hover,.sidebar-btn:hover, .header-btn:hover {
@@ -164,6 +169,10 @@ main {
     width: 55px;
     height: 55px;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
 }
 
 i {
