@@ -4,12 +4,121 @@
     <meta charset="utf-8">
     <title>Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/styles/add-courses.css}">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <div class="background"></div>
-<main>
-    <img th:src="@{/images/home_images/logo.png}">
-    <h1>Add a new course</h1>
-</main>
+
+<!--<img th:src="@{/images/home_images/logo.png}">-->
+<h1 class="ml-5 mb-5" th:if="${course} == null">Add a new course</h1>
+<h1 class="ml-5 mb-5" th:if="${course} != null">Edit course</h1>
+<form action="/all_courses/add" method="post">
+    <div class="row w-100 pl-5">
+        <div class="col-6">
+            <div class="w-100 mb-4">
+                <div class="mb-2">Course category</div>
+                <select class="add-courses_input w-25 text-center" name="categoryId">
+                    <option th:if="${course} != null"
+                            th:selected="${cat.getName() != null && course.getCategory().getId() == cat.getId()}"
+                            th:each="cat : ${categories}"
+                            th:value="${cat.getId()}"
+                            th:text="${cat.getName()}">
+                    </option>
+                    <option th:if="${course} == null"
+                            th:each="cat : ${categories}"
+                            th:value="${cat.getId()}"
+                            th:text="${cat.getName()}">
+                    </option>
+                </select>
+
+
+            </div>
+            <div class="w-100 mb-4">
+                <div class="mb-2">Name</div>
+                <input type="text"
+                       class="w-75 add-courses_input"
+                       name="name"
+                       th:value="(${course}!=null ? ${course.getName()} : '')">
+            </div>
+            <div class="w-100 mb-4">
+                <div class="mb-2">Description</div>
+                <textarea class="w-75 add-courses_input add-courses_text-area-input" name="description"
+                          th:text="(${course}!=null ? ${course.getDescription()} : '')"></textarea>
+            </div>
+            <div class="w-100 mb-4">
+                <div class="mb-2">Teacher</div>
+                <input type="text" class="w-75 add-courses_input" name="teacher"   th:value="(${course}!=null ? ${course.getTeacher()} : '')">
+            </div>
+            <div class="w-75 mb-4 d-flex  justify-content-between">
+                <div>
+                    <div class="mb-2">Total time</div>
+                    <input type="text" placeholder=":" name="time" class="w-50 add-courses_input text-center"   th:value="(${course}!=null ? ${course.getTime()} : '')">
+                </div>
+                <div>
+                    <div class="mb-2">Courses logo</div>
+                    <input type="text" class="w-50 add-courses_input" name="image"   th:value="(${course}!=null ? ${course.getImage()} : '')">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="w-100 mb-4">
+                <div class="mb-2">Number of lessons</div>
+                <select class="add-courses_input w-50 text-center">
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                </select>
+            </div>
+            <div class="w-100 mb-4">
+                <div class="mb-2">Materials of course</div>
+                <button class="btn button-add add-courses_input mr-2"><i
+                        class="fa-thin fa-plus w-100 h-100 d-flex align-items-center"></i></button>
+                <span class="text-secondary">Add files..</span>
+            </div>
+            <div class="w-100 mb-4">
+                <div class="mb-2">Number of quizzes</div>
+                <select class="add-courses_input w-50 text-center">
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                </select>
+            </div>
+            <div class="w-100 mb-4">
+                <div class="mb-2">Materials for the quizzes</div>
+                <button class="btn button-add add-courses_input mr-2"><i
+                        class="fa-thin fa-plus w-100 h-100 d-flex align-items-center"></i></button>
+                <span class="text-secondary">Add files..</span>
+            </div>
+        </div>
+    </div>
+    <div class="row w-90 text-end d-flex justify-content-end mb-5">
+        <button class="btn save-button text-white pl-3 pr-3 " type="submit">SAVE</button>
+    </div>
+</form>
+
 </body>
 </html>

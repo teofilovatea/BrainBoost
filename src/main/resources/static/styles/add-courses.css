@@ -1,0 +1,42 @@
+body {
+    font-family: "Javanese Text";
+}
+
+.add-courses_input {
+    text-align: center;
+    border-radius:8px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.44);
+}
+.add-courses_text-area-input {
+    border-radius:8px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.44);
+    min-height: 100px;
+}
+
+select {
+    direction: rtl;
+}
+select option{
+    direction:ltr;
+}
+.button-add{
+    background-color: rgba(217, 217, 217, 0.55) !important;
+    height: 40px;
+    font-size: 25px!important;
+    color: gray;
+    border-radius:8px;
+}
+.save-button{
+    background-color: #001C27 !important;
+    box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8) !important;
+    width: 130px;
+    border-radius: 8px !important;
+}
+.w-90{
+    width: 90%!important;
+}
+.w-35{
+    width: 35%;
+}
