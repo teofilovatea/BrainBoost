@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/brain_boost
     username: postgres
-    password: postgres #if you need, please, replace username and password locally but do not push them
+    password: admin #if you need, please, replace username and password locally but do not push them
   jpa:
     show-sql: true
     hibernate:
