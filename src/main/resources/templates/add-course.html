@@ -20,6 +20,7 @@
 <form action="/all_courses/add" method="post">
     <div class="row w-100 pl-5">
         <div class="col-6">
+            <input id="id" type="hidden" name="id" th:value="(${course} != null ? ${course.getId()} : '')">
             <div class="w-100 mb-4">
                 <div class="mb-2">Course category</div>
                 <select class="add-courses_input w-25 text-center" name="categoryId">

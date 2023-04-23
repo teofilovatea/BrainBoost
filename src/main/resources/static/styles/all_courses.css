@@ -215,7 +215,7 @@ i {
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.4);
     background-color: var(--body-color);
-    height: 300px;
+    height: 310px;
 }
 
 .card > img {
@@ -258,5 +258,20 @@ i {
 .favorites-btn > i , .lower-left-cd > i{
     color: var(--grey-color);
     font-size: 1rem;
+}
+
+form .delete-btn {
+    color: red;
+    font-size: 1.0rem;
+    display: inline;
+    border: none;
+    background: none;
+}
+.edit-btn {
+    color: black;
+    font-size: 1.0rem;
+    display: inline;
+    border: none;
+    background: none;
 }
 

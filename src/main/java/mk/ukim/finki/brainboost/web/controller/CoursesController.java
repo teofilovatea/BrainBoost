@@ -31,7 +31,7 @@ public class CoursesController {
         model.addAttribute("courses", courses);
         return "all_courses";
     }
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteCourse(@PathVariable Long id) {
         this.courseService.deleteById(id);
         return "redirect:/all_courses";
@@ -47,15 +47,19 @@ public class CoursesController {
 
     @PostMapping("/add")
     public String addCourse(
+            @RequestParam(required = false) Long id,
             @RequestParam String name,
             @RequestParam Long categoryId,
             @RequestParam String description,
             @RequestParam String teacher,
             @RequestParam String image,
             @RequestParam String time) {
-
-        this.courseService.save(name,categoryId,description,teacher,image,time);
-
+        if(id!=null){
+            this.courseService.edit(id, name, categoryId, description, teacher, image, time);
+        }
+        else{
+            this.courseService.save(name,categoryId,description,teacher,image,time);
+        }
         return "redirect:/all_courses";
     }
 
