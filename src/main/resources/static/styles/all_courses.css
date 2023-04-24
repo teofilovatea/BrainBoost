@@ -275,3 +275,15 @@ form .delete-btn {
     background: none;
 }
 
+.details-btn{
+    color: black;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border: none;
+    background: rgba(51, 148, 232, 0.18);
+    width: 100px;
+    height: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+

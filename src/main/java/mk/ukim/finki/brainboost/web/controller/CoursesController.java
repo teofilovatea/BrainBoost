@@ -75,6 +75,14 @@ public class CoursesController {
         return "redirect:/all_courses?error=ProductNotFound";
     }
 
-
+    @GetMapping("/details/{id}")
+    public String courseDetailsPage(@PathVariable Long id, Model model) {
+        if (this.courseService.findById(id).isPresent()) {
+            Course course = this.courseService.findById(id).get();
+            model.addAttribute("course", course);
+            return "course-details";
+        }
+        return "redirect:/all_courses?error=ProductNotFound";
+    }
 
 }
