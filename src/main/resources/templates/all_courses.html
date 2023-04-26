@@ -59,21 +59,17 @@
                         </div>
                     </div>
                     <div class="lower-course-details">
-                    <a th:href="@{'/all_courses/edit-form/{id}' (id=${course.getId()})}"
-                       class="btn btn-sm btn-info edit-btn lower-right-cd">
-                        <i class="fa fa-pen-to-square edit-btn"></i>
-                    </a>
-                        <a th:href="@{'/all_courses/details/{id}' (id=${course.getId()})}"
-                           class="btn-sm details-btn lower-right-cd">
-                            View Details
+                        <a th:href="@{'/all_courses/edit-form/{id}' (id=${course.getId()})}"
+                           class="btn btn-sm btn-info edit-btn lower-right-cd">
+                            <i class="fa fa-pen-to-square edit-btn"></i>
                         </a>
+                        <a class="details-btn" th:href="@{'/all_courses/details/{id}' (id=${course.getId()})}">View Details</a>
                         <form th:action="@{'/all_courses/delete/{id}' (id=${course.getId()})}"
                               th:method="POST">
                             <button type="submit" class="delete-btn">
-                                <i class="fa fa-trash delete-btn"></i>
+                                <i class="fa-solid fa-trash" style="color: #ff5757;"></i>
                             </button>
                         </form>
-
                     </div>
                 </div>
             </div>
