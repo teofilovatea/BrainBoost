@@ -1,11 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Course details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/styles/course_details.css}">
 </head>
 <body>
-<h1 th:text="${course.getName()}"></h1>
-<h1 th:text="${course.getDescription()}"></h1>
+<div class="content">
+    <div class="sidebar">
+        <a th:href="@{'/home'}"><img th:src="@{/images/home_images/logo.png}" alt="logo" class="logo"></a>
+        <br>
+        <a th:href="@{'/all_courses'}" class="sidebar-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
+        <br><br>
+        <a th:href="@{'/all_courses/details/{id}' (id=${course.getId()})}" class="active-btn"><i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></a>
+        <a class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
+        <a class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
+        <br><br>
+        <div class="user-profile">
+            <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
+            <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
+        </div>
+    </div>
+    <main>
+        <div class="upper-main">
+            <img class="background-img" th:src="@{${course.getImage()}}">
+            <div class="course-details">
+                <h1 th:text="${course.getName()}"></h1>
+                <p th:text=" 'Teacher: ' + ${course.getTeacher()}"></p>
+                <p th:text=" 'Total time: ' + ${course.getTime()} + 'h'"></p>
+            </div>
+            <img class="course-img" th:src="@{${course.getImage()}}">
+        </div>
+        <div class="lower-main">
+            <div class="course-desc">
+                <h2>Course description:</h2>
+               <span th:text="${course.getDescription()}"></span>
+            </div>
+            <button class="enroll-btn">Enroll</button>
+        </div>
+    </main>
+</div>
 </body>
 </html>
