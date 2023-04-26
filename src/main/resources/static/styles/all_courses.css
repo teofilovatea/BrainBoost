@@ -204,6 +204,7 @@ i {
 }
 
 .card-container {
+    position: relative;
     margin: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, 300px);
@@ -211,6 +212,7 @@ i {
 }
 
 .card {
+    position: relative;
     box-sizing: border-box;
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.4);
@@ -260,30 +262,54 @@ i {
     font-size: 1rem;
 }
 
-form .delete-btn {
-    color: red;
-    font-size: 1.0rem;
-    display: inline;
+.delete-btn {
     border: none;
     background: none;
 }
+
+.delete-btn > i {
+    font-size: 1.0rem;
+    display: inline;
+}
+
 .edit-btn {
-    color: black;
+    color: var(--grey-color);
     font-size: 1.0rem;
     display: inline;
     border: none;
     background: none;
 }
 
-.details-btn{
-    color: black;
-    font-size: 0.9rem;
-    text-decoration: none;
-    border: none;
-    background: rgba(51, 148, 232, 0.18);
-    width: 100px;
-    height: 20px;
+.card > img {
+    transition: .5s ease;
+}
+
+.card:hover > img {
+    filter: brightness(50%);
+}
+
+.details-btn {
+    display: none;
+    position: absolute;
+    background-color: var(--primary-blue);
+    color: var(--body-color);
+    font-weight: 700;
     border-radius: 5px;
-    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    top:30%;
+    left:30%;
+    transition: all 300ms ease-in-out;
+}
+
+
+.card:hover .details-btn {
+    display: block;
+    opacity: 1;
+}
+
+.details-btn:hover {
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
