@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Course Catalog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/styles/all_courses.css}">
+</head>
+<body>
+<div class="content">
+    <header>
+        <h1>Favourites List</h1>
+        <div class="right-header">
+            <a th:href="@{'/all_courses/add-form'}" class="new-course-btn">+ NEW COURSE</a>
+            <div class="search-input"><input type="search" placeholder="search"><button><i class="fa-solid fa-magnifying-glass"></i></button></div>
+            <button class="header-btn"><i class="fa-regular fa-bell"></i></button>
+            <button class="header-btn"><i class="fa-solid fa-gear"></i></button>
+        </div>
+    </header>
+    <div class="sidebar">
+        <a th:href="@{'/home'}"><img th:src="@{/images/home_images/logo.png}" alt="logo" class="logo"></a>
+        <br>
+        <a th:href="@{'/all_courses'}" class="active-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
+        <br><br>
+        <a class="sidebar-btn"><i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></a>
+        <a class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
+        <a class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
+        <br><br>
+        <div class="user-profile">
+            <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
+            <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
+        </div>
+    </div>
+    <main>
+        <div class="card-container">
+            <div th:each="course : ${courses}" class="card">
+                <img th:src="@{${course.getImage()}}"/>
+                <div class="course-details">
+                    <div class="upper-course-details">
+                        <span th:text="${course.getName()}" class="course-name"></span>
+                        <button class="favorites-btn"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="lower-course-details">
+                        <div class="lower-left-cd">
+                            <i class="fa-solid fa-user"></i>
+                            <span th:text="${course.getTeacher()}" class="course-author"></span>
+                        </div>
+                        <div class="lower-right-cd">
+                            <span th:text="${course.getCategory().getName()}" class="course-lessons"></span>
+                            <span>•</span>
+                            <span th:text="${course.getTime()} + 'h'" class="course-quizzes"></span>
+                        </div>
+                    </div>
+                    <div class="lower-course-details">
+                        <a th:href="@{'/all_courses/edit-form/{id}' (id=${course.getId()})}"
+                           class="btn btn-sm btn-info edit-btn lower-right-cd">
+                            <i class="fa fa-pen-to-square edit-btn"></i>
+                        </a>
+                        <a class="details-btn" th:href="@{'/all_courses/details/{id}' (id=${course.getId()})}">View Details</a>
+                        <form th:action="@{'/all_courses/delete/{id}' (id=${course.getId()})}"
+                              th:method="POST">
+                            <button type="submit" class="delete-btn">
+                                <i class="fa-solid fa-trash" style="color: #ff5757;"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
