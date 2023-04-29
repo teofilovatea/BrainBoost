@@ -16,7 +16,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login/**","/login" ,"/api/**","/","/login/**", "/home", "/assets/**", "/register/**","/css/**","/js/**","/img/**","/static/**","/styles/**", "/images/**").permitAll()
                         .requestMatchers("/all_courses/add-form/**").hasAuthority("ADMIN")
