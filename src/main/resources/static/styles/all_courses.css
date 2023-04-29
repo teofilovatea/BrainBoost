@@ -243,6 +243,13 @@ i {
     align-items: center;
 }
 
+.favourites-course{
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    align-items: center;
+}
+
 .course-name {
     font-weight: 600;
 }
