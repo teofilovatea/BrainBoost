@@ -31,7 +31,7 @@
         <a th:href="@{'/all_courses'}" class="active-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
         <br><br>
         <a class="sidebar-btn"><i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></a>
-        <a class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
+        <a th:href="@{'/favourite_list'}" class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
         <a class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
         <br><br>
         <div class="user-profile">
@@ -46,7 +46,10 @@
                 <div class="course-details">
                     <div class="upper-course-details">
                         <span th:text="${course.getName()}" class="course-name"></span>
+                        <form  th:action="@{'/favourite_list/{id}' (id=${course.id})}"
+                               th:method="POST">
                         <button class="favorites-btn"><i class="fa-regular fa-heart"></i></button>
+                        </form>
                     </div>
                     <div class="lower-course-details">
                         <div class="lower-left-cd">
