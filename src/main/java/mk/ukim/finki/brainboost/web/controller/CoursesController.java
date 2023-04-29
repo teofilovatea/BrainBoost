@@ -2,6 +2,7 @@ package mk.ukim.finki.brainboost.web.controller;
 
 import mk.ukim.finki.brainboost.domain.Category;
 import mk.ukim.finki.brainboost.domain.Course;
+import mk.ukim.finki.brainboost.repository.CourseRepository;
 import mk.ukim.finki.brainboost.service.CategoryService;
 import mk.ukim.finki.brainboost.service.CourseService;
 import org.springframework.stereotype.Controller;
@@ -15,20 +16,28 @@ import java.util.List;
 public class CoursesController {
     private final CourseService courseService;
     private final CategoryService categoryService;
+    private final CourseRepository courseRepository;
 
-    public CoursesController(CourseService courseService, CategoryService categoryService) {
+    public CoursesController(CourseService courseService, CategoryService categoryService, CourseRepository courseRepository) {
         this.courseService = courseService;
         this.categoryService = categoryService;
+        this.courseRepository = courseRepository;
     }
 
     @GetMapping
-    public String getProductPage(@RequestParam(required = false) String error, Model model) {
+    public String getProductPage(@RequestParam(required = false) String error,
+                                 @RequestParam(required = false) String categoryName,
+                                 Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
             model.addAttribute("error", error);
         }
-        List<Course> courses = this.courseService.listAll();
-        model.addAttribute("courses", courses);
+        else if(categoryName != null){
+            model.addAttribute("courses", this.courseRepository.findByCategory_Name(categoryName));
+        }
+        else {
+            model.addAttribute("courses", this.courseService.listAll());
+        }
         return "all_courses";
     }
     @PostMapping("/delete/{id}")
