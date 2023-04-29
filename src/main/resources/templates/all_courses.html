@@ -12,10 +12,12 @@
     <header>
         <h1>Course Catalog</h1>
         <div class="right-header">
+            <span th:text ="'Hello, ' +  ${#authentication.getPrincipal().getUsername()}"></span>
             <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/all_courses/add-form'}" class="new-course-btn">+ NEW COURSE</a>
             <div class="search-input"><input type="search" placeholder="search"><button><i class="fa-solid fa-magnifying-glass"></i></button></div>
-            <button class="header-btn"><i class="fa-regular fa-bell"></i></button>
-            <button class="header-btn"><i class="fa-solid fa-gear"></i></button>
+            <a class="new-course-btn" href="/logout">
+                <i class="fa-solid fa-right-from-bracket" title="Logout"></i>
+            </a>
         </div>
     </header>
     <div class="categories-container">

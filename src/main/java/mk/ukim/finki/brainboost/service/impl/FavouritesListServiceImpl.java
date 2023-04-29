@@ -66,7 +66,7 @@ public class FavouritesListServiceImpl implements FavouritesListService {
     }
 
     @Override
-    public FavouritesList removeCourseFromWishList(String userId, Integer courseId) {
+    public FavouritesList removeCourseFromWishList(String userId, Long courseId) {
         FavouritesList favouritesList=this.getActiveFavouriteList(userId);
         favouritesList.setCourses(favouritesList.getCourses()
                 .stream().filter(course -> !course.getId().equals(courseId))

@@ -11,9 +11,11 @@
     <header>
         <h1>Favourites List</h1>
         <div class="right-header">
+            <span th:text ="'Hello, ' +  ${#authentication.getPrincipal().getUsername()}"></span>
             <div class="search-input"><input type="search" placeholder="search"><button><i class="fa-solid fa-magnifying-glass"></i></button></div>
-            <button class="header-btn"><i class="fa-regular fa-bell"></i></button>
-            <button class="header-btn"><i class="fa-solid fa-gear"></i></button>
+            <a class="new-course-btn" href="/logout">
+                <i class="fa-solid fa-right-from-bracket" title="Logout"></i>
+            </a>
         </div>
     </header>
     <div class="sidebar">
@@ -37,7 +39,10 @@
                 <div class="course-details">
                     <div class="upper-course-details">
                         <span th:text="${course.getName()}" class="course-name"></span>
-                        <button class="favorites-btn"><i class="fa-solid fa-heart"></i></button>
+                        <form th:action="@{'/favourite_list/remove-course/{id}' (id=${course.getId()})}"
+                              th:method="POST">
+                        <button class="favorites-btn" title="Remove from Favourites"><i class="fa-solid fa-heart" style="color: red"></i></button>
+                        </form>
                     </div>
                     <div class="lower-course-details">
                         <div class="lower-left-cd">
@@ -52,12 +57,12 @@
                     </div>
                     <div class="favourites-course lower-course-details">
                         <a class="details-btn" th:href="@{'/all_courses/details/{id}' (id=${course.getId()})}">View Details</a>
-                        <form th:action="@{'/favourite_list/remove-course/{id}' (id=${course.getId()})}"
-                              th:method="POST">
-                            <button type="submit" class="delete-btn">
-                                <i class="fa-solid fa-trash" style="color: #ff5757;"></i>
-                            </button>
-                        </form>
+<!--                        <form th:action="@{'/favourite_list/remove-course/{id}' (id=${course.getId()})}"-->
+<!--                              th:method="POST">-->
+<!--                            <button type="submit" class="delete-btn" title="Remove from Favourites">-->
+<!--                                <i class="fa-solid fa-trash" style="color: #ff5757;"></i>-->
+<!--                            </button>-->
+<!--                        </form>-->
                     </div>
                 </div>
             </div>

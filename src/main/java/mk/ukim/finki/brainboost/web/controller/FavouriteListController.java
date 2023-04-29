@@ -40,7 +40,7 @@ public class FavouriteListController {
         return "redirect:/favourite_list";
     }
     @PostMapping("/remove-course/{id}")
-    public String removeCourseFromFavouritesList(@PathVariable Integer id, Authentication authentication) {
+    public String removeCourseFromFavouritesList(@PathVariable Long id, Authentication authentication) {
         User client= (User) authentication.getPrincipal();
         FavouritesList favouritesList = this.favouritesListService.removeCourseFromWishList(client.getUsername(), id);
         return "redirect:/favourite_list";
