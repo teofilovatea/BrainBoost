@@ -42,10 +42,48 @@ header {
 }
 
 .search-input {
-    border: 1px solid rgba(0,0,0,0.5);
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
+    position: relative;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.search-input input[type="search"] {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 50px 10px 20px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f0f0f0;
+    box-shadow: none;
+}
+
+.search-input button[type="submit"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-input button[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+
+.search-input i.fa-solid.fa-magnifying-glass {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 20px;
 }
 
 .search-input > input {
