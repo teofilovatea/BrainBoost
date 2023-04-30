@@ -10,4 +10,5 @@ import java.util.List;
 public interface CourseRepository extends JpaRepository<Course, Long> {
  void deleteByName(String name);
  List<Course> findByCategory_Name(String category);
+ List<Course> findByNameContainingIgnoreCase(String name);
 }

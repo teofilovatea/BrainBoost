@@ -27,6 +27,7 @@ public class CoursesController {
     @GetMapping
     public String getProductPage(@RequestParam(required = false) String error,
                                  @RequestParam(required = false) String categoryName,
+                                 @RequestParam(required = false) String query,
                                  Model model) {
         if (error != null && !error.isEmpty()) {
             model.addAttribute("hasError", true);
@@ -34,6 +35,9 @@ public class CoursesController {
         }
         else if(categoryName != null){
             model.addAttribute("courses", this.courseRepository.findByCategory_Name(categoryName));
+        }
+        else if(query != null){
+            model.addAttribute("courses", this.courseRepository.findByNameContainingIgnoreCase(query));
         }
         else {
             model.addAttribute("courses", this.courseService.listAll());
