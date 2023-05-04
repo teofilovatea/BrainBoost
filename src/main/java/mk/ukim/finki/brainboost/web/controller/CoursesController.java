@@ -104,10 +104,17 @@ public class CoursesController {
     }
 
     @GetMapping("/details/{id}")
-    public String courseDetailsPage(@PathVariable Long id, Model model) {
+    public String courseDetailsPage(@PathVariable Long id, Model model, Principal principal) {
         if (this.courseService.findById(id).isPresent()) {
             Course course = this.courseService.findById(id).get();
+
+            String username = principal.getName();
+            Optional<User> userOptional = userRepository.findByUsername(username);
+            User user = userOptional.get();
+
+            boolean isUserEnrolled = enrollmentRepository.findByUserAndCourse(user, course) != null;
             model.addAttribute("course", course);
+            model.addAttribute("isUserEnrolled", isUserEnrolled);
             return "course-details";
         }
         return "redirect:/all_courses?error=ProductNotFound";

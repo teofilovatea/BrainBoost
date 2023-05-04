@@ -38,7 +38,7 @@
                <span th:text="${course.getDescription()}"></span>
             </div>
             <form th:action="@{'/all_courses/{courseId}/enroll' (courseId=${course.getId()})}" th:method="POST">
-                <button class="enroll-btn">Enroll</button>
+                <button class="enroll-btn" th:text="${isUserEnrolled ? 'Already Enrolled' : 'Enroll'}" th:disabled="${isUserEnrolled}">Enroll</button>
             </form>
         </div>
     </main>
