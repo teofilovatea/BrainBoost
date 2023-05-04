@@ -2,14 +2,25 @@ package mk.ukim.finki.brainboost.web.controller;
 
 import mk.ukim.finki.brainboost.domain.Category;
 import mk.ukim.finki.brainboost.domain.Course;
+import mk.ukim.finki.brainboost.domain.Enrollment;
+import mk.ukim.finki.brainboost.domain.User;
+import mk.ukim.finki.brainboost.domain.exceptions.CourseNotFoundException;
+import mk.ukim.finki.brainboost.domain.exceptions.UserAlreadyEnrolledException;
+import mk.ukim.finki.brainboost.domain.exceptions.UserNotFoundException;
 import mk.ukim.finki.brainboost.repository.CourseRepository;
+import mk.ukim.finki.brainboost.repository.EnrollmentRepository;
+import mk.ukim.finki.brainboost.repository.UserRepository;
 import mk.ukim.finki.brainboost.service.CategoryService;
 import mk.ukim.finki.brainboost.service.CourseService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/all_courses")
@@ -17,11 +28,15 @@ public class CoursesController {
     private final CourseService courseService;
     private final CategoryService categoryService;
     private final CourseRepository courseRepository;
+    private final EnrollmentRepository enrollmentRepository;
+    private final UserRepository userRepository;
 
-    public CoursesController(CourseService courseService, CategoryService categoryService, CourseRepository courseRepository) {
+    public CoursesController(CourseService courseService, CategoryService categoryService, CourseRepository courseRepository, EnrollmentRepository enrollmentRepository, UserRepository userRepository) {
         this.courseService = courseService;
         this.categoryService = categoryService;
         this.courseRepository = courseRepository;
+        this.enrollmentRepository = enrollmentRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -98,4 +113,49 @@ public class CoursesController {
         return "redirect:/all_courses?error=ProductNotFound";
     }
 
+    @GetMapping("/enrolled")
+    public String getEnrolledCourses(Principal principal, Model model) {
+        // Get the current user's username from the Principal object
+        String username = principal.getName();
+
+        // Query the enrollment repository to find all enrollments for the current user
+        List<Enrollment> enrollments = enrollmentRepository.findByUserUsername(username);
+
+        // Extract the courses from the enrollments and return them as a list
+        List<Course> courses = enrollments.stream()
+                .map(Enrollment::getCourse)
+                .collect(Collectors.toList());
+        model.addAttribute("enrollments", enrollments);
+        return "course-enrollment";
+    }
+    @PostMapping("/{courseId}/enroll")
+    public String enrollUserToCourse(@PathVariable Long courseId, Principal principal) {
+        // Find the Course object corresponding to the given courseId
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        if (!courseOptional.isPresent()) {
+            throw new CourseNotFoundException(courseId);
+        }
+        Course course = courseOptional.get();
+
+        // Find the User object corresponding to the given username
+        String username = principal.getName();
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if (!userOptional.isPresent()) {
+            throw new UserNotFoundException(username);
+        }
+        User user = userOptional.get();
+
+        // Check if the user is already enrolled in the course
+        if (enrollmentRepository.findByUserAndCourse(user, course) != null) {
+            throw new UserAlreadyEnrolledException(courseId, username);
+        }
+
+        Enrollment enrollment = new Enrollment(user,course);
+        enrollmentRepository.save(enrollment);
+
+        return "redirect:/all_courses/enrolled";
+    }
+
 }
+
+

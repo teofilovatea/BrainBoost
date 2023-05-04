@@ -37,7 +37,9 @@
                 <h2>Course description:</h2>
                <span th:text="${course.getDescription()}"></span>
             </div>
-            <button class="enroll-btn">Enroll</button>
+            <form th:action="@{'/all_courses/{courseId}/enroll' (courseId=${course.getId()})}" th:method="POST">
+                <button class="enroll-btn">Enroll</button>
+            </form>
         </div>
     </main>
 </div>
