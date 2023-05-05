@@ -132,6 +132,7 @@ public class CoursesController {
         List<Course> courses = enrollments.stream()
                 .map(Enrollment::getCourse)
                 .collect(Collectors.toList());
+        model.addAttribute("courses", this.courseService.listAll());
         model.addAttribute("enrollments", enrollments);
         return "course-enrollment";
     }

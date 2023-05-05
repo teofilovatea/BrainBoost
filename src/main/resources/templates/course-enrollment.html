@@ -1,70 +1,183 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>My Courses</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/styles/all_courses.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" th:href="@{/styles/course-enrollment.css}"/>
 </head>
 <body>
 <div class="content">
-<header>
-    <h1>My Courses</h1>
-    <div class="right-header">
-        <span th:text ="'Hello, ' +  ${#authentication.getPrincipal().getUsername()}"></span>
-        <div class="search-input">
-            <form th:action="@{/all_courses}" method="get">
-                <input type="search" name="query" placeholder="Search..." th:value="${query}">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </form>
+    <header>
+        <h1>My Courses</h1>
+        <div class="right-header">
+            <span th:text="'Hello, ' +  ${#authentication.getPrincipal().getUsername()}"></span>
+            <div class="search-input">
+                <form th:action="@{/all_courses}" method="get">
+                    <input
+                            type="search"
+                            name="query"
+                            placeholder="Search..."
+                            th:value="${query}" />
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </form>
+            </div>
+            <a class="new-course-btn" href="/logout">
+                <i class="fa-solid fa-right-from-bracket" title="Logout"></i>
+            </a>
         </div>
-        <a class="new-course-btn" href="/logout">
-            <i class="fa-solid fa-right-from-bracket" title="Logout"></i>
-        </a>
+    </header>
+    <div class="sidebar">
+        <a th:href="@{'/home'}"><img th:src="@{/images/home_images/logo.png}" alt="logo" class="logo"></a>
+        <br>
+        <a th:href="@{'/all_courses'}" class="sidebar-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
+        <br><br>
+        <a th:href="@{'/all_courses/enrolled'}" class="active-btn"><i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></a>
+        <a th:href="@{'/favourite_list'}" class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
+        <a class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
+        <br><br>
+        <div class="user-profile">
+            <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
+            <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
+        </div>
     </div>
-</header>
-<div class="sidebar">
-    <a th:href="@{'/home'}"><img th:src="@{/images/home_images/logo.png}" alt="logo" class="logo"></a>
-    <br>
-    <a th:href="@{'/all_courses'}"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
-    <br><br>
-    <a class="sidebar-btn"><i class="fa-solid fa-graduation-cap active-btn" style="color: #ffffff;"></i></a>
-    <a th:href="@{'/favourite_list'}" class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
-    <a class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
-    <br><br>
-    <div class="user-profile">
-        <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
-        <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
-    </div>
-</div>
-<main>
-    <div class="card-container">
-        <div th:each="enrollment : ${enrollments}" class="card">
-            <img th:src="@{${enrollment.course.getImage()}}"/>
-            <div class="course-details">
-                <div class="upper-course-details">
-                    <span th:text="${enrollment.course.getName()}" class="course-name"></span>
-                    <form  th:action="@{'/favourite_list/{id}' (id=${enrollment.course.id})}"
-                           th:method="POST">
-                        <button class="favorites-btn"><i class="fa-regular fa-heart"></i></button>
-                    </form>
+    <main>
+        <div class="stats">
+            <div class="user-level">
+                <img src="https://cdn-icons-png.flaticon.com/512/2502/2502719.png" height="100px" />
+                <div class="progress-background">
+                    <div class="progress-color"></div>
                 </div>
-                <div class="lower-course-details">
-                    <div class="lower-left-cd">
-                        <i class="fa-solid fa-user"></i>
-                        <span th:text="${enrollment.course.getTeacher()}" class="course-author"></span>
+                <p>50 points to reach new level</p>
+            </div>
+            <div class="user-stats">
+                <p>STATISTICS</p>
+                <div class="container">
+                    <div class="courses">
+                        <i class="stat-icon fa-solid fa-book"></i>
+                        <span class="container-numbers">3</span>
+                        <p class="container-p">completed courses</p>
                     </div>
-                    <div class="lower-right-cd">
-                        <span th:text="${enrollment.course.getCategory().getName()}" class="course-lessons"></span>
-                        <span>•</span>
-                        <span th:text="${enrollment.course.getTime()} + 'h'" class="course-quizzes"></span>
+                    <div class="quizzes">
+                        <i class="stat-icon fa-solid fa-list-check"></i>
+                        <span class="container-numbers">6</span>
+                        <p class="container-p">passed quizzes</p>
+                    </div>
+                    <div class="percentages">
+                        <i class="stat-icon fa-solid fa-hourglass-half"></i>
+                        <span class="container-numbers">75%</span>
+                        <p class="container-p">total percentage done</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+        <div class="calendar">
+            <div class="month-and-btn">
+                <div id="month-year"></div>
+                <div class="calendar-btn">
+                    <button onclick="previousWeek()">&lt;</button>
+                    <button onclick="nextWeek()">></button>
+                </div>
+            </div>
+            <table class="calendar-table">
+                <thead>
+                <tr>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                    <th>Sun</th>
+                </tr>
+                </thead>
+                <tbody id="calendar-body">
+                </tbody>
+            </table>
+        </div>
+        <div class="enrolled-courses">
+            <div class="ec-top">
+                <span>ENROLLED COURSES</span>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Course name</th>
+                    <th>Mentor</th>
+                    <th>Marks</th>
+                    <th>Progress</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tr th:each="course : ${enrollments}" class="table-row">
+                    <td class="table-course-name">
+                        <div class="table-img">
+                            <img th:src="@{${course.getCourse().getImage()}}"/>
+                        </div>
+                        <div>
+                        <div th:text="${course.getCourse().getName()}"></div>
+                        <span th:text="${course.getCourse().getTime()} + 'h'"></span>
+                        </div>
+                    </td>
+                    <td th:text="${course.getCourse().getTeacher()}">
+                        <i class="fa-solid fa-user"></i>
+                    </td>
+                    <td>20/25</td>
+                    <td>
+                        80% done
+                        <div class="progress-background">
+                            <div class="progress-color"></div>
+                        </div>
+                    </td>
+                    <td><i class="fa-solid fa-ellipsis"></i></td>
+                </tr>
+            </table>
+        </div>
+        <div class="similar-courses">
+            <span>SIMILAR COURSES</span>
+            <div class="card-container">
+                <div th:with="limitedCourses=${courses.subList(0,2)}">
+                <div th:each="course: ${limitedCourses}" class="card">
+                    <img th:src="@{${course.getImage()}}"/>
+                    <div class="course-details">
+                        <div class="upper-course-details">
+                            <span th:text="${course.getName()}" class="course-name"></span>
+                            <form  th:action="@{'/favourite_list/{id}' (id=${course.id})}"
+                                   th:method="POST">
+                                <button class="favorites-btn"><i class="fa-regular fa-heart"></i></button>
+                            </form>
+                        </div>
+                        <div class="lower-course-details">
+                            <div class="lower-left-cd">
+                                <i class="fa-solid fa-user"></i>
+                                <span th:text="${course.getTeacher()}" class="course-author"></span>
+                            </div>
+                            <div class="lower-right-cd">
+                                <span th:text="${course.getCategory().getName()}" class="course-lessons"></span>
+                                <span>•</span>
+                                <span th:text="${course.getTime()} + 'h'" class="course-quizzes"></span>
+                            </div>
+                        </div>
+                        <div class="lower-course-details">
+                            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/all_courses/edit-form/{id}' (id=${course.getId()})}"
+                               class="btn btn-sm btn-info edit-btn lower-right-cd">
+                                <i class="fa fa-pen-to-square edit-btn"></i>
+                            </a>
+                            <a class="details-btn" th:href="@{'/all_courses/details/{id}' (id=${course.getId()})}">View Details</a>
+                            <form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/all_courses/delete/{id}' (id=${course.getId()})}"
+                                  th:method="POST">
+                                <button type="submit" class="delete-btn">
+                                    <i class="fa-solid fa-trash" style="color: #ff5757;"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 </body>
+<script th:src="@{/scripts/calendar.js}"></script>
 </html>
