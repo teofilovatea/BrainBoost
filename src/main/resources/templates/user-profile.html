@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/styles/user-profile.css}">
+</head>
+<body>
+<div class="content">
+  <div class="sidebar">
+    <a th:href="@{'/home'}"><img th:src="@{/images/home_images/logo.png}" alt="logo" class="logo"></a>
+    <br>
+    <a th:href="@{'/all_courses'}" class="sidebar-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
+    <br><br>
+    <a th:href="@{'/all_courses/details/{id}'}" class="sidebar-btn"><i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></a>
+    <a class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
+    <a class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
+    <br><br>
+    <div class="user-profile">
+      <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
+      <a th:href="@{'/user_profile'}" class="active-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
+    </div>
+  </div>
+  <main>
+    <div class="row">
+      <div class="col col">
+      </div>
+      <div class="col col-6 border border-primary" style="margin-top: 100px; background-color: white">
+        <form >
+          <div class="row">
+            <h1 class="text-center">Profile Settings</h1>
+          </div>
+          <div class="row" style="margin-bottom: 20px">
+            <div class="col"></div>
+            <div class="col">
+              <img th:src="@{/images/userProfile_images/user-img.png}" alt="userImage" style="width: 100px; height: 100px">
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="row" style="margin-bottom: 20px">
+            <div class="col">
+            </div>
+            <div class="col text-center">
+              <label class="">First Name</label>
+              <br><hr>
+              <input type="text" th:value="${#authentication.getPrincipal().getFirstName()}" class="form-control" placeholder="Name">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col text-center">
+              <label>Surname</label>
+              <br><hr>
+              <input type="text" th:value="${#authentication.getPrincipal().getLastName()}" class="form-control" placeholder="Last Name">
+            </div>
+            <div class="col">
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 20px">
+            <div class="col">
+            </div>
+            <div class="col text-center">
+              <label class="">Username</label>
+              <br><hr>
+              <input type="text" th:value="${#authentication.getPrincipal().getUsername()}" class="form-control" placeholder="Username">
+            </div>
+            <div class="col">
+            </div>
+            <div class="col text-center">
+              <label>Mobile</label>
+              <br><hr>
+              <input type="text" class="form-control" placeholder="071/123-456">
+            </div>
+            <div class="col">
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 20px">
+            <div class="col">
+            </div>
+            <div class="col text-center">
+              <label  class="">Email</label>
+              <br><hr>
+              <input type="text" th:value="${#authentication.getPrincipal().getEmail()}" class="form-control" placeholder="Email">
+            </div>
+            <div class="col">
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 20px">
+            <div class="col">
+            </div>
+            <div class="col text-center">
+              <button class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+            <div class="col">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-3">
+
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
