@@ -19,7 +19,7 @@
         <br><br>
         <div class="user-profile">
             <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
-            <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
+            <a th:href="@{'/user_profile'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
         </div>
     </div>
     <main>
@@ -35,7 +35,7 @@
         <div class="lower-main">
             <div class="course-desc">
                 <h2>Course description:</h2>
-               <span th:text="${course.getDescription()}"></span>
+                <span th:text="${course.getDescription()}"></span>
             </div>
             <form th:action="@{'/all_courses/{courseId}/enroll' (courseId=${course.getId()})}" th:method="POST">
                 <button class="enroll-btn" th:text="${isUserEnrolled ? 'Already Enrolled' : 'Enroll'}" th:disabled="${isUserEnrolled}">Enroll</button>

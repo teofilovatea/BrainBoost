@@ -38,7 +38,7 @@
         <br><br>
         <div class="user-profile">
             <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
-            <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
+            <a th:href="@{'/user_profile'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
         </div>
     </div>
     <main>
@@ -115,8 +115,8 @@
                             <img th:src="@{${course.getCourse().getImage()}}"/>
                         </div>
                         <div>
-                        <div th:text="${course.getCourse().getName()}"></div>
-                        <span th:text="${course.getCourse().getTime()} + 'h'"></span>
+                            <div th:text="${course.getCourse().getName()}"></div>
+                            <span th:text="${course.getCourse().getTime()} + 'h'"></span>
                         </div>
                     </td>
                     <td th:text="${course.getCourse().getTeacher()}">
@@ -137,42 +137,42 @@
             <span>SIMILAR COURSES</span>
             <div class="card-container">
                 <div th:with="limitedCourses=${courses.subList(0,2)}">
-                <div th:each="course: ${limitedCourses}" class="card">
-                    <img th:src="@{${course.getImage()}}"/>
-                    <div class="course-details">
-                        <div class="upper-course-details">
-                            <span th:text="${course.getName()}" class="course-name"></span>
-                            <form  th:action="@{'/favourite_list/{id}' (id=${course.id})}"
-                                   th:method="POST">
-                                <button class="favorites-btn"><i class="fa-regular fa-heart"></i></button>
-                            </form>
-                        </div>
-                        <div class="lower-course-details">
-                            <div class="lower-left-cd">
-                                <i class="fa-solid fa-user"></i>
-                                <span th:text="${course.getTeacher()}" class="course-author"></span>
+                    <div th:each="course: ${limitedCourses}" class="card">
+                        <img th:src="@{${course.getImage()}}"/>
+                        <div class="course-details">
+                            <div class="upper-course-details">
+                                <span th:text="${course.getName()}" class="course-name"></span>
+                                <form  th:action="@{'/favourite_list/{id}' (id=${course.id})}"
+                                       th:method="POST">
+                                    <button class="favorites-btn"><i class="fa-regular fa-heart"></i></button>
+                                </form>
                             </div>
-                            <div class="lower-right-cd">
-                                <span th:text="${course.getCategory().getName()}" class="course-lessons"></span>
-                                <span>•</span>
-                                <span th:text="${course.getTime()} + 'h'" class="course-quizzes"></span>
+                            <div class="lower-course-details">
+                                <div class="lower-left-cd">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span th:text="${course.getTeacher()}" class="course-author"></span>
+                                </div>
+                                <div class="lower-right-cd">
+                                    <span th:text="${course.getCategory().getName()}" class="course-lessons"></span>
+                                    <span>•</span>
+                                    <span th:text="${course.getTime()} + 'h'" class="course-quizzes"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="lower-course-details">
-                            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/all_courses/edit-form/{id}' (id=${course.getId()})}"
-                               class="btn btn-sm btn-info edit-btn lower-right-cd">
-                                <i class="fa fa-pen-to-square edit-btn"></i>
-                            </a>
-                            <a class="details-btn" th:href="@{'/all_courses/details/{id}' (id=${course.getId()})}">View Details</a>
-                            <form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/all_courses/delete/{id}' (id=${course.getId()})}"
-                                  th:method="POST">
-                                <button type="submit" class="delete-btn">
-                                    <i class="fa-solid fa-trash" style="color: #ff5757;"></i>
-                                </button>
-                            </form>
+                            <div class="lower-course-details">
+                                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/all_courses/edit-form/{id}' (id=${course.getId()})}"
+                                   class="btn btn-sm btn-info edit-btn lower-right-cd">
+                                    <i class="fa fa-pen-to-square edit-btn"></i>
+                                </a>
+                                <a class="details-btn" th:href="@{'/all_courses/details/{id}' (id=${course.getId()})}">View Details</a>
+                                <form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/all_courses/delete/{id}' (id=${course.getId()})}"
+                                      th:method="POST">
+                                    <button type="submit" class="delete-btn">
+                                        <i class="fa-solid fa-trash" style="color: #ff5757;"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
