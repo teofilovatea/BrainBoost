@@ -1,16 +1,18 @@
 package mk.ukim.finki.brainboost.service.impl;
 
+import mk.ukim.finki.brainboost.domain.Category;
+import mk.ukim.finki.brainboost.domain.Course;
 import mk.ukim.finki.brainboost.domain.User;
-import mk.ukim.finki.brainboost.domain.exceptions.InvalidArgumentsException;
-import mk.ukim.finki.brainboost.domain.exceptions.InvalidUserCredentialsException;
-import mk.ukim.finki.brainboost.domain.exceptions.PasswordsDoNotMatchException;
-import mk.ukim.finki.brainboost.domain.exceptions.UserAlreadyExistsException;
+import mk.ukim.finki.brainboost.domain.exceptions.*;
 import mk.ukim.finki.brainboost.repository.UserRepository;
 import mk.ukim.finki.brainboost.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -61,6 +63,17 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return  this.userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
+    }
+
+    @Override
+    public Optional<User> edit(Long id, String name, String surname, String email, String username, Authentication authentication) {
+        User user= (User) authentication.getPrincipal();
+
+        user.setFirstName(name);
+        user.setLastName(surname);
+        user.setEmail(email);
+        user.setUsername(username);
+        return Optional.of(this.userRepository.save(user));
     }
 
 

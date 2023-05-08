@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>User Profile</title>
@@ -21,26 +20,24 @@
     <br><br>
     <div class="user-profile">
       <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
-      <a th:href="@{'/user_profile'}" class="active-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
+      <a th:href="@{'/user_profile'}" class="active-btn"><i class="fa-solid fa-circle-user"></i></a>
     </div>
   </div>
   <main>
     <div class="row">
       <div class="col col">
       </div>
-      <div class="col col-6 border border-primary" style="margin-top: 100px; background-color: white">
-        <form >
-          <div class="row">
+      <div class="col col-6" style="margin-top: 100px; background-color: white; border-radius: 10px">
+        <form action="/user_profile" method="post">
+          <input id="id" type="hidden" name="id" th:value="(${user} != null ? ${user.getId()} : '')">
+      <div class="row">
             <h1 class="text-center">Profile Settings</h1>
           </div>
           <div class="row" style="margin-bottom: 20px">
             <div class="col"></div>
-            <div class="col">
-              <img th:src="@{/images/userProfile_images/user-img.png}" alt="userImage" style="width: 100px; height: 100px">
+            <div style="text-align: center">
+              <img th:src="@{/images/userProfile_images/user-img.jpg}" alt="userImage" style="width: 150px; height: 150px">
             </div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
           </div>
           <div class="row" style="margin-bottom: 20px">
             <div class="col">
@@ -48,14 +45,14 @@
             <div class="col text-center">
               <label class="">First Name</label>
               <br><hr>
-              <input type="text" th:value="${#authentication.getPrincipal().getFirstName()}" class="form-control" placeholder="Name">
+              <input type="text" name="name" th:value="${user.getFirstName()}" class="form-control" placeholder="Name">
             </div>
             <div class="col">
             </div>
             <div class="col text-center">
-              <label>Surname</label>
+              <label>Last Name</label>
               <br><hr>
-              <input type="text" th:value="${#authentication.getPrincipal().getLastName()}" class="form-control" placeholder="Last Name">
+              <input type="text" name="surname" th:value="${user.getLastName()}" class="form-control" placeholder="Last Name">
             </div>
             <div class="col">
             </div>
@@ -66,7 +63,7 @@
             <div class="col text-center">
               <label class="">Username</label>
               <br><hr>
-              <input type="text" th:value="${#authentication.getPrincipal().getUsername()}" class="form-control" placeholder="Username">
+              <input type="text" name="username" th:value="${user.getUsername()}" class="form-control" placeholder="Username">
             </div>
             <div class="col">
             </div>
@@ -84,7 +81,7 @@
             <div class="col text-center">
               <label  class="">Email</label>
               <br><hr>
-              <input type="text" th:value="${#authentication.getPrincipal().getEmail()}" class="form-control" placeholder="Email">
+              <input type="text" name="email" th:value="${user.getEmail()}" class="form-control" placeholder="Email">
             </div>
             <div class="col">
             </div>
@@ -93,7 +90,7 @@
             <div class="col">
             </div>
             <div class="col text-center">
-              <button class="btn btn-primary">
+              <button class="btn btn-primary" id="saveButton" type="submit">
                 Save changes
               </button>
             </div>
@@ -110,3 +107,14 @@
 </div>
 </body>
 </html>
+
+<script>
+  const saveButton = document.getElementById("saveButton");
+
+  saveButton.addEventListener("click", function() {
+    // save changes logic here
+
+    // display a pop-up or alert message
+    alert("Changes Saved");
+  });
+</script>
