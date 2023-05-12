@@ -8,6 +8,7 @@ import mk.ukim.finki.brainboost.service.LessonService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public class LessonServiceImpl implements LessonService {
@@ -29,5 +30,10 @@ public class LessonServiceImpl implements LessonService {
     public void delete (Long courseId, Long lessonId) {
         Lesson lesson = lessonRepository.findByCourseIdAndId (courseId, lessonId);
         lessonRepository.delete (lesson);
+    }
+
+    @Override
+    public List<Lesson> findAllByCourse (Long courseId) {
+        return lessonRepository.findAllByCourseId (courseId);
     }
 }

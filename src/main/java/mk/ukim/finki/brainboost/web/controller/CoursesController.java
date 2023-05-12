@@ -12,7 +12,7 @@ import mk.ukim.finki.brainboost.repository.EnrollmentRepository;
 import mk.ukim.finki.brainboost.repository.UserRepository;
 import mk.ukim.finki.brainboost.service.CategoryService;
 import mk.ukim.finki.brainboost.service.CourseService;
-import org.springframework.http.ResponseEntity;
+import mk.ukim.finki.brainboost.service.LessonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +31,15 @@ public class CoursesController {
     private final EnrollmentRepository enrollmentRepository;
     private final UserRepository userRepository;
 
-    public CoursesController(CourseService courseService, CategoryService categoryService, CourseRepository courseRepository, EnrollmentRepository enrollmentRepository, UserRepository userRepository) {
+    private final LessonService lessonService;
+
+    public CoursesController(CourseService courseService, CategoryService categoryService, CourseRepository courseRepository, EnrollmentRepository enrollmentRepository, UserRepository userRepository, LessonService lessonService) {
         this.courseService = courseService;
         this.categoryService = categoryService;
         this.courseRepository = courseRepository;
         this.enrollmentRepository = enrollmentRepository;
         this.userRepository = userRepository;
+        this.lessonService = lessonService;
     }
 
     @GetMapping
@@ -115,6 +118,7 @@ public class CoursesController {
             boolean isUserEnrolled = enrollmentRepository.findByUserAndCourse(user, course) != null;
             model.addAttribute("course", course);
             model.addAttribute("isUserEnrolled", isUserEnrolled);
+            model.addAttribute("lessons", this.lessonService.findAllByCourse(id));
             return "course-details";
         }
         return "redirect:/all_courses?error=ProductNotFound";
