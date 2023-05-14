@@ -2,8 +2,13 @@ package mk.ukim.finki.brainboost.web.controller;
 
 import mk.ukim.finki.brainboost.domain.Lesson;
 import mk.ukim.finki.brainboost.domain.exceptions.LessonNotFoundException;
+import mk.ukim.finki.brainboost.repository.LessonRepository;
 import mk.ukim.finki.brainboost.service.CourseService;
 import mk.ukim.finki.brainboost.service.LessonService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +23,12 @@ public class LessonController {
     private final LessonService lessonService;
 
     private final CourseService courseService;
+    private final LessonRepository lessonRepository;
 
-    public LessonController (LessonService lessonService, CourseService courseService) {
+    public LessonController (LessonService lessonService, CourseService courseService, LessonRepository lessonRepository) {
         this.lessonService = lessonService;
         this.courseService = courseService;
+        this.lessonRepository = lessonRepository;
     }
 
     @PostMapping("/courses/{courseId}")
@@ -64,5 +71,14 @@ public class LessonController {
         }else{
             return "redirect:/all_courses?error=ProductNotFound";
         }
+    }
+    @GetMapping("/pdf/{id}")
+    public ResponseEntity<byte[]> openPdf(@PathVariable Long id) throws IOException {
+        Lesson lesson = lessonRepository.findById(id).orElseThrow(LessonNotFoundException::new);
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + lesson.getName() + ".pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(lesson.getPdf());
     }
 }

@@ -27,4 +27,7 @@ public class Lesson {
         this.course = course;
         this.content = content;
     }
+    public byte[] getPdf() {
+        return content;
+    }
 }
