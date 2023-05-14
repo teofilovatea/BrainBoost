@@ -22,14 +22,12 @@
         <a th:href="@{'/all_courses'}" class="sidebar-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
         <br><br>
         <a th:href="@{'/all_courses/details/{id}' (id=${course.getId()})}" class="active-btn"><i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></a>
-        <a class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
+        <a th:href="@{'/favourite_list'}" class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
         <a class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
         <br><br>
         <div class="user-profile">
             <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
             <a th:href="@{'/user_profile'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
-            <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user"
-                                                             style="color: #bb6bd9;"></i></a>
         </div>
     </div>
     <div class=" w-25 lessons-side-bar" th:if="${isUserEnrolled}">
