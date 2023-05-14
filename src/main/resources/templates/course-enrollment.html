@@ -104,7 +104,6 @@
                 <tr>
                     <th>Course name</th>
                     <th>Mentor</th>
-                    <th>Marks</th>
                     <th>Progress</th>
                     <th>Options</th>
                 </tr>
@@ -115,14 +114,14 @@
                             <img th:src="@{${course.getCourse().getImage()}}"/>
                         </div>
                         <div>
-                            <div th:text="${course.getCourse().getName()}"></div>
+                            <a th:href="@{'/all_courses/details/{id}' (id=${course.getCourse().getId()})}" th:text="${course.getCourse().getName()}"></a>
+                            <br>
                             <span th:text="${course.getCourse().getTime()} + 'h'"></span>
                         </div>
                     </td>
                     <td th:text="${course.getCourse().getTeacher()}">
                         <i class="fa-solid fa-user"></i>
                     </td>
-                    <td>20/25</td>
                     <td>
                         80% done
                         <div class="progress-background">
