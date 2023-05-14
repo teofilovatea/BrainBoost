@@ -43,7 +43,7 @@
         <br><br>
         <div class="user-profile">
             <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
-            <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
+            <a th:href="@{'/user_profile'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
         </div>
     </div>
     <main>
@@ -55,7 +55,7 @@
                         <span th:text="${course.getName()}" class="course-name"></span>
                         <form  th:action="@{'/favourite_list/{id}' (id=${course.id})}"
                                th:method="POST">
-                        <button class="favorites-btn"><i class="fa-regular fa-heart"></i></button>
+                            <button class="favorites-btn"><i class="fa-regular fa-heart"></i></button>
                         </form>
                     </div>
                     <div class="lower-course-details">
