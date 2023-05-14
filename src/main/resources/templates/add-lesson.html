@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new leassons</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/styles/course_details.css}">
+    <link rel="stylesheet" th:href="@{/styles/add-lessons.css}">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class=" d-flex">
+    <div class="sidebar ">
+        <a th:href="@{'/home'}"><img th:src="@{/images/home_images/logo.png}" alt="logo" class="logo"></a>
+        <br>
+        <a th:href="@{'/all_courses'}" class="sidebar-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
+        <br><br>
+        <a th:href="@{'/all_courses/details/{id}' (id=${courseId})}" class="active-btn"><i
+                class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></a>
+        <a class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
+        <a class="sidebar-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
+        <br><br>
+        <div class="user-profile">
+            <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
+            <a th:href="@{'/logout'}" class="sidebar-btn"><i class="fa-solid fa-circle-user"
+                                                             style="color: #bb6bd9;"></i></a>
+        </div>
+    </div>
+    <main class="w-100 ">
+        <form th:action="@{'/lessons/courses/{courseId}'  (courseId=${courseId})}" method="post" enctype="multipart/form-data">>
+        <div class="upper-main container mt-4">
+            <h1>Add new Lessons</h1>
+            <div class="w-100 mb-4">
+                <div class="mb-2">Name</div>
+                <input type="text"
+                       class="w-50 add-courses_input"
+                       name="name"/>
+            </div>
+            <div class="form-group w-50">
+                <label for="fileImage">File</label>
+                <input type="file"
+                       class="form-control"
+                       id="fileImage"
+                       name="file"
+                       accept="application/pdf"/>
+            </div>
+
+            <div class=" w-50 mt-4 text-end d-flex justify-content-end mb-5">
+                <button class="btn save-button text-white pl-3 pr-3 " type="submit">SAVE</button>
+            </div>
+        </div>
+        </form>
+    </main>
+</div>
+</body>
+</html>

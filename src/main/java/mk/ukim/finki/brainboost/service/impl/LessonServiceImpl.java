@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LessonServiceImpl implements LessonService {
@@ -35,5 +36,10 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public List<Lesson> findAllByCourse (Long courseId) {
         return lessonRepository.findAllByCourseId (courseId);
+    }
+
+    @Override
+    public Optional<Lesson> findById (Long courseId) {
+        return lessonRepository.findById (courseId);
     }
 }

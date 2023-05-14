@@ -10,9 +10,6 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf_viewer.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 </head>
 <body>
 <div class=" d-flex">
@@ -35,7 +32,7 @@
     <div class=" w-25 lessons-side-bar">
         <div class="mt-4">
             <a th:href="@{'/all_courses'}" style="color: black;margin-top: 10px"><i class="fa fa-sharp fa-light fa-arrow-left ml-3"
-                                                                 style="color: black;font-size: 15px"></i> Back</a>
+                                                                                    style="color: black;font-size: 15px"></i> Back</a>
         </div>
         <div class="d-flex lessons-side-bar-card mx-auto my-4 py-2 " style="color: #141C65" th:if="${isUserEnrolled}">
             <div class="w-25 pl-3"><i class="fa-solid fa-check-double" style="color: #3584ff;font-size: 15px"></i></div>
@@ -86,15 +83,6 @@
                 </button>
             </form>
         </div>
-        <div id="pdf-viewer" th:text="${lessons[0].getContent()}">
-
-        </div>
-
-            <object     th:data="${list} ($list)"
-                    width="1200"
-                    height="500 0"/>
-
-
     </main>
 </div>
 </body>
