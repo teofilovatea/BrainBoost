@@ -16,6 +16,8 @@ import mk.ukim.finki.brainboost.service.LessonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.util.List;
@@ -141,7 +143,7 @@ public class CoursesController {
         return "course-enrollment";
     }
     @PostMapping("/{courseId}/enroll")
-    public String enrollUserToCourse(@PathVariable Long courseId, Principal principal) {
+    public RedirectView enrollUserToCourse(@PathVariable Long courseId, Principal principal, RedirectAttributes redirectAttributes) {
         // Find the Course object corresponding to the given courseId
         Optional<Course> courseOptional = courseRepository.findById(courseId);
         if (!courseOptional.isPresent()) {
@@ -165,7 +167,8 @@ public class CoursesController {
         Enrollment enrollment = new Enrollment(user,course);
         enrollmentRepository.save(enrollment);
 
-        return "redirect:/all_courses/enrolled";
+        redirectAttributes.addFlashAttribute("courseId", courseId);
+        return new RedirectView("/all_courses/details/{courseId}");
     }
 
 }
