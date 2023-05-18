@@ -9,6 +9,7 @@ import mk.ukim.finki.brainboost.domain.exceptions.UserAlreadyEnrolledException;
 import mk.ukim.finki.brainboost.domain.exceptions.UserNotFoundException;
 import mk.ukim.finki.brainboost.repository.CourseRepository;
 import mk.ukim.finki.brainboost.repository.EnrollmentRepository;
+import mk.ukim.finki.brainboost.repository.QuizRepository;
 import mk.ukim.finki.brainboost.repository.UserRepository;
 import mk.ukim.finki.brainboost.service.CategoryService;
 import mk.ukim.finki.brainboost.service.CourseService;
@@ -34,14 +35,16 @@ public class CoursesController {
     private final UserRepository userRepository;
 
     private final LessonService lessonService;
+    private final QuizRepository quizRepository;
 
-    public CoursesController(CourseService courseService, CategoryService categoryService, CourseRepository courseRepository, EnrollmentRepository enrollmentRepository, UserRepository userRepository, LessonService lessonService) {
+    public CoursesController(CourseService courseService, CategoryService categoryService, CourseRepository courseRepository, EnrollmentRepository enrollmentRepository, UserRepository userRepository, LessonService lessonService, QuizRepository quizRepository) {
         this.courseService = courseService;
         this.categoryService = categoryService;
         this.courseRepository = courseRepository;
         this.enrollmentRepository = enrollmentRepository;
         this.userRepository = userRepository;
         this.lessonService = lessonService;
+        this.quizRepository = quizRepository;
     }
 
     @GetMapping
@@ -121,6 +124,7 @@ public class CoursesController {
             model.addAttribute("course", course);
             model.addAttribute("isUserEnrolled", isUserEnrolled);
             model.addAttribute("lessons", this.lessonService.findAllByCourse(id));
+            model.addAttribute("quizzes", this.quizRepository.findQuizByCourse(course));
             return "course-details";
         }
         return "redirect:/all_courses?error=ProductNotFound";

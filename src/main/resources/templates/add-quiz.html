@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/styles/add-courses.css}">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h1 class="ml-5 mb-5">Add a new Quiz</h1>
+
+<form action="/quizzes/new" method="post">
+    <input type="hidden" name="courseId" th:value="${courseId}">
+
+    <label for="name" class="ml-5">Quiz Name:</label>
+    <input class="ml-5" type="text" id="name" name="name" required>
+
+    <div id="questions-container">
+        <div class="question">
+            <label class="ml-5" for="question1">Question 1:</label>
+            <input class="ml-5 mr-3" type="text" id="question1" name="questions[0].text" required>
+
+            <button type="button" class="mr-1 btn save-button text-white pl-3 pr-3 mb-3" onclick="addAnswer(this)">Add Answer</button>
+        </div>
+    </div>
+<br>
+    <button class="ml-5 btn save-button text-white pl-3 pr-3 " type="button" onclick="addQuestion()">Add Question</button>
+    <button class="ml-5 btn save-button text-white pl-3 pr-3 " type="submit">Create Quiz</button>
+</form>
+
+<script>
+    var questionIndex = 1;
+
+    function addQuestion() {
+        questionIndex++;
+
+        var questionsContainer = document.getElementById('questions-container');
+
+        var questionDiv = document.createElement('div');
+        questionDiv.classList.add('question');
+
+        var questionLabel = document.createElement('label');
+        questionLabel.setAttribute('for', 'question' + questionIndex);
+        questionLabel.setAttribute('class', 'ml-5');
+        questionLabel.textContent = 'Question ' + questionIndex + ':';
+        questionDiv.appendChild(questionLabel);
+
+        var questionInput = document.createElement('input');
+        questionInput.setAttribute('type', 'text');
+        questionInput.setAttribute('id', 'question' + questionIndex);
+        questionInput.setAttribute('class', 'ml-5 mr-3');
+        questionInput.setAttribute('name', 'questions[' + (questionIndex - 1) + '].text');
+        questionInput.setAttribute('required', 'true');
+        questionDiv.appendChild(questionInput);
+
+        var addAnswerButton = document.createElement('button');
+        addAnswerButton.setAttribute('type', 'button');
+        addAnswerButton.setAttribute('onclick', 'addAnswer(this)');
+        addAnswerButton.setAttribute('class', 'ml-1 btn save-button text-white pl-3 pr-3 mb-3 mr-3');
+        addAnswerButton.textContent = 'Add Answer';
+        questionDiv.appendChild(addAnswerButton);
+
+        questionsContainer.appendChild(questionDiv);
+    }
+
+    function addAnswer(button) {
+        var answerIndex = button.parentNode.querySelectorAll('input[type="text"]').length - 1;
+
+        var answerLabel = document.createElement('label');
+        answerLabel.textContent = 'Answer ' + (answerIndex + 1) + ':';
+        button.parentNode.appendChild(answerLabel);
+        answerLabel.setAttribute('class', 'ml-2');
+
+        var answerInput = document.createElement('input');
+        answerInput.setAttribute('type', 'text');
+        answerInput.setAttribute('name', 'questions[' + (questionIndex - 1) + '].answers[' + answerIndex + ']');
+        answerInput.setAttribute('required', 'true');
+        answerInput.setAttribute('class', 'me-3');
+        button.parentNode.appendChild(answerInput);
+    }
+</script>
+</body>
+</html>

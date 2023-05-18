@@ -30,8 +30,8 @@ select option{
 }
 .save-button{
     background-color: #001C27 !important;
-    box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8) !important;
-    width: 130px;
+    box-shadow: 1px 1px 5px 2px rgba(0,0,0,.8) !important;
+    width: 150px;
     border-radius: 8px !important;
 }
 .w-90{

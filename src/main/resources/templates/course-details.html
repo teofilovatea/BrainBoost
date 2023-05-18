@@ -48,13 +48,31 @@
                 <a th:href="@{'/lessons/pdf/{id}' (id=${lesson.getId()})}" class="text-center" th:text="${lesson.getName()}"></a>
             </div>
         </div>
-
         <div  class="lessons-side-bar-card mx-auto mt-5 mb-2 py-2" style="color: black">
             <div class="d-flex align-items-center">
                 <div class="w-25 pl-3">
                     <i class="fa-regular fa-plus" style="color: black;font-size: 15px"></i>
                 </div>
                 <a th:href="@{'/lessons/add-form?coursesId='+ ${course.getId()}}" class="text-center"  style="color: black"><b>Add new lessons</b></a>
+            </div>
+        </div>
+
+        <div class="ml-3 mt-5" style="color: #696868">QUIZZES</div>
+        <div th:each="quiz : ${quizzes}" class="lessons-side-bar-card mx-auto my-2 py-2">
+            <div class="d-flex  align-items-center">
+                <div class="w-25 pl-3">
+                    <i class="fa-regular fa fa-bookmark" style="color: #a6a3a3;font-size: 15px"></i>
+                </div>
+                <a th:href="@{'/quizzes/{id}' (id=${quiz.getId()})}" th:text="${quiz.getName()}"></a>
+            </div>
+        </div>
+
+        <div  class="lessons-side-bar-card mx-auto mt-5 mb-2 py-2" style="color: black">
+            <div class="d-flex align-items-center">
+                <div class="w-25 pl-3">
+                    <i class="fa-regular fa-plus" style="color: black;font-size: 15px"></i>
+                </div>
+                <a th:href="@{'/quizzes/add-form?courseId='+ ${course.getId()}}" class="text-center"  style="color: black"><b>Add new quizzes</b></a>
             </div>
         </div>
     </div>
