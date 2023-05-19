@@ -14,9 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/quizzes")
@@ -81,5 +84,15 @@ public class QuizController {
     @GetMapping("/submit-quiz")
     public String showQuizDetails() {
         return "successfully-finished";
+    }
+
+    @PostMapping("/{quizId}/delete/{courseId}")
+    public String deleteQuizForCourse(@PathVariable("quizId") Long quizId,
+                                            @PathVariable("courseId") Long courseId, RedirectAttributes redirectAttributes) {
+        quizRepository.findById(quizId).ifPresent(quiz -> {
+            quizRepository.delete(quiz);
+            redirectAttributes.addFlashAttribute("deleteSuccess", true);
+        });
+        return "redirect:/all_courses/details/" + courseId;
     }
 }
