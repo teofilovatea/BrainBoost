@@ -193,7 +193,7 @@ i {
     transform: scale(1.1);
 }
 .lessons-side-bar{
-    height: 100vh;
+    height: 200vh;
     background: rgba(0, 28, 39, 0.09);
 }
 .lessons-side-bar-card{
