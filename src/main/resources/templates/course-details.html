@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Course details</title>
@@ -41,11 +41,27 @@
         </div>
         <div class="ml-3 mt-5" style="color: #696868"> LESSONS</div>
         <div th:each="lesson : ${lessons}" class="lessons-side-bar-card mx-auto my-2 py-2">
-            <div class="d-flex  align-items-center">
-                <div class="w-25 pl-3">
+            <div class="d-flex align-items-center">
+                <div class="pl-2">
                     <i class="fa-regular fa fa-bookmark" style="color: #a6a3a3;font-size: 15px"></i>
                 </div>
-                <a th:href="@{'/lessons/pdf/{id}' (id=${lesson.getId()})}" class="text-center" th:text="${lesson.getName()}"></a>
+                <div class="flex-grow-1 pl-2" style="text-align: center">
+                    <a th:href="@{'/lessons/pdf/{id}' (id=${lesson.getId()})}" class="text-center" th:text="${lesson.getName()}"></a>
+                </div>
+                <div class="pl-2">
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/lessons/{coursesId}/edit-form/{lessonId}' (coursesId=${course.id}, lessonId=${lesson.id})}"
+                       class="edit">
+                        <i class="fa fa-pen-to-square edit"></i>
+                    </a>
+                </div>
+                <div class="pl-2 pr-2">
+                    <form sec:authorize="hasAuthority('ADMIN')" th:action="@{'/lessons/courses/{courseId}/lessons/{lessonId}' (courseId=${course.id}, lessonId=${lesson.id})}"
+                          th:method="POST">
+                        <button type="submit" class="delete-btn">
+                            <i class="fa-solid fa-trash" style="color: #ff5757;"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
         <div  class="lessons-side-bar-card mx-auto mt-5 mb-2 py-2" style="color: black">
