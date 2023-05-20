@@ -144,6 +144,14 @@ public class CoursesController {
                 .collect(Collectors.toList());
         model.addAttribute("courses", this.courseService.listAll());
         model.addAttribute("enrollments", enrollments);
+
+        User user = this.userRepository.findByUsername(username).orElseThrow();
+        int finishedQuizzes = quizRepository.getPassedQuizCountByStudentId(user.getId());
+        int startedCourses = enrollmentRepository.getEnrollmentCountByUser(user.getId());
+
+        model.addAttribute("finishedQuizzes", finishedQuizzes);
+        model.addAttribute("startedCourses", startedCourses);
+        model.addAttribute("percentFinished", (double) finishedQuizzes / startedCourses * 100);
         return "course-enrollment";
     }
     @PostMapping("/{courseId}/enroll")

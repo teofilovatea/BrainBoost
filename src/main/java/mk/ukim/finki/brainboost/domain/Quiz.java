@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,8 +33,11 @@ public class Quiz {
     @ManyToOne
     private User user;
 
-    public Quiz(String name, Course course) {
+    private LocalDate dateFinished;
+
+    public Quiz(String name, Course course, LocalDate dateFinished) {
         this.name = name;
         this.course = course;
+        this.dateFinished = dateFinished;
     }
 }
