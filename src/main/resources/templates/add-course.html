@@ -13,17 +13,18 @@
 </head>
 <body>
 <div class="background"></div>
-
-<!--<img th:src="@{/images/home_images/logo.png}">-->
-<h1 class="ml-5 mb-5" th:if="${course} == null">Add a new course</h1>
-<h1 class="ml-5 mb-5" th:if="${course} != null">Edit course</h1>
+<div class="d-flex justify-content-center">
+    <!--<img th:src="@{/images/home_images/logo.png}">-->
+    <h1 class="mb-5 mt-3" th:if="${course} == null">Add a new course</h1>
+    <h1 class="mb-5 mt-3" th:if="${course} != null">Edit course</h1>
+</div>
 <form action="/all_courses/add" method="post">
-    <div class="row w-100 pl-5">
-        <div class="col-6">
+    <div class=" w-100  d-flex justify-content-center">
+        <div>
             <input id="id" type="hidden" name="id" th:value="(${course} != null ? ${course.getId()} : '')">
             <div class="w-100 mb-4">
                 <div class="mb-2">Course category</div>
-                <select class="add-courses_input w-25 text-center" name="categoryId">
+                <select class="add-courses_input w-50 text-center" name="categoryId">
                     <option th:if="${course} != null"
                             th:selected="${cat.getName() != null && course.getCategory().getId() == cat.getId()}"
                             th:each="cat : ${categories}"
@@ -42,79 +43,36 @@
             <div class="w-100 mb-4">
                 <div class="mb-2">Name</div>
                 <input type="text"
-                       class="w-75 add-courses_input"
+                       class="w-100 add-courses_input"
                        name="name"
                        th:value="(${course}!=null ? ${course.getName()} : '')">
             </div>
             <div class="w-100 mb-4">
                 <div class="mb-2">Description</div>
-                <textarea class="w-75 add-courses_input add-courses_text-area-input" name="description"
+                <textarea class="w-100 add-courses_input add-courses_text-area-input" name="description"
                           th:text="(${course}!=null ? ${course.getDescription()} : '')"></textarea>
             </div>
             <div class="w-100 mb-4">
                 <div class="mb-2">Teacher</div>
-                <input type="text" class="w-75 add-courses_input" name="teacher"   th:value="(${course}!=null ? ${course.getTeacher()} : '')">
+                <input type="text" class="w-100 add-courses_input" name="teacher"
+                       th:value="(${course}!=null ? ${course.getTeacher()} : '')">
             </div>
-            <div class="w-75 mb-4 d-flex  justify-content-between">
-                <div>
+            <div class="w-100 mb-4 d-flex   justify-content-between">
+                <div class="w-75">
                     <div class="mb-2">Total time</div>
-                    <input type="text" placeholder=":" name="time" class="w-50 add-courses_input text-center"   th:value="(${course}!=null ? ${course.getTime()} : '')">
+                    <input type="text" placeholder=":" name="time" class="w-100 add-courses_input text-center"
+                           th:value="(${course}!=null ? ${course.getTime()} : '')">
                 </div>
-                <div>
-                    <div class="mb-2">Courses logo</div>
-                    <input type="text" class="w-50 add-courses_input" name="image"   th:value="(${course}!=null ? ${course.getImage()} : '')">
+                <div class="w-75 justify-content-end">
+
+                        <div class="mb-2">Courses logo</div>
+                        <input type="text" class="w-100 add-courses_input" name="image"
+                               th:value="(${course}!=null ? ${course.getImage()} : '')">
+
                 </div>
             </div>
         </div>
 
-        <div class="col-4">
-            <div class="w-100 mb-4">
-                <div class="mb-2">Number of lessons</div>
-                <select class="add-courses_input w-50 text-center">
-                    <option value="1">
-                        1
-                    </option>
-                    <option value="2">
-                        2
-                    </option>
-                    <option value="3">
-                        3
-                    </option>
-                    <option value="4">
-                        4
-                    </option>
-                </select>
-            </div>
-            <div class="w-100 mb-4">
-                <div class="mb-2">Materials of course</div>
-                <button class="btn button-add add-courses_input mr-2"><i
-                        class="fa-thin fa-plus w-100 h-100 d-flex align-items-center"></i></button>
-                <span class="text-secondary">Add files..</span>
-            </div>
-            <div class="w-100 mb-4">
-                <div class="mb-2">Number of quizzes</div>
-                <select class="add-courses_input w-50 text-center">
-                    <option value="1">
-                        1
-                    </option>
-                    <option value="2">
-                        2
-                    </option>
-                    <option value="3">
-                        3
-                    </option>
-                    <option value="4">
-                        4
-                    </option>
-                </select>
-            </div>
-            <div class="w-100 mb-4">
-                <div class="mb-2">Materials for the quizzes</div>
-                <button class="btn button-add add-courses_input mr-2"><i
-                        class="fa-thin fa-plus w-100 h-100 d-flex align-items-center"></i></button>
-                <span class="text-secondary">Add files..</span>
-            </div>
-        </div>
     </div>
     <div class="row w-90 text-end d-flex justify-content-end mb-5">
         <button class="btn save-button text-white pl-3 pr-3 " type="submit">SAVE</button>
