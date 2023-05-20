@@ -50,7 +50,7 @@
         </div>
     </div>
 <main>
-<form action="/quizzes/submit-quiz" method="get">
+    <form th:action="@{'/quizzes/submit-quiz/{quizId}' (quizId=${quiz.getId()})}" method="post">
     <div th:each="question : ${questions}">
         <h3 th:text="${question.text}"></h3>
         <ul class="questions">

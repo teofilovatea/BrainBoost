@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +64,7 @@ public class QuizController {
         Course course = courseService.findById(quizForm.getCourseId()).orElse(null);
 
         // Create a new Quiz object with the form data
-        Quiz quiz = new Quiz(quizForm.getName(), course);
+        Quiz quiz = new Quiz(quizForm.getName(), course, null);
         quiz.setUser((User) authentication.getPrincipal()); // Set the user for the quiz (assuming you have a method to get the current user)
 
         // Create and associate the questions with the quiz
@@ -81,8 +83,12 @@ public class QuizController {
 
         return "redirect:/quizzes/" + savedQuiz.getId(); // Redirect to the newly created quiz's page
     }
-    @GetMapping("/submit-quiz")
-    public String showQuizDetails() {
+    @PostMapping("/submit-quiz/{quizId}")
+    public String showQuizDetails(@PathVariable Long quizId) {
+        Quiz quiz = quizRepository.findById(quizId).orElseThrow(RuntimeException::new);
+        LocalDate localDate = LocalDate.now();
+        quiz.setDateFinished(localDate);
+        quizRepository.save(quiz);
         return "successfully-finished";
     }
 
