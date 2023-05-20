@@ -43,10 +43,10 @@ public class LessonController {
         }
     }
 
-    @DeleteMapping("/courses/{courseId}/lessons/{lessonId}")
+    @PostMapping("/courses/{courseId}/lessons/{lessonId}")
     public String deleteCourseLesson (@PathVariable("courseId") Long courseId,
                                       @PathVariable("lessonId") Long lessonId) {
-        lessonService.delete (courseId, lessonId);
+        this.lessonService.delete(courseId, lessonId);
         return "redirect:/all_courses/details/" + courseId;
     }
 
@@ -62,7 +62,7 @@ public class LessonController {
     public String lessonsDetailsPage (Model model, @RequestParam Long lessonId,@RequestParam Long coursesId, Principal principal) {
         if (this.courseService.findById(coursesId).isPresent() && this.lessonService.findById(lessonId).isPresent()) {
             Lesson lesson = this.lessonService.findById(lessonId)
-                    .orElseThrow(() -> new LessonNotFoundException());
+                    .orElseThrow(LessonNotFoundException::new);
             model.addAttribute("bodyContent", "add-lesson");
             model.addAttribute("lesson", lesson);
             model.addAttribute("lessonId", lessonId);

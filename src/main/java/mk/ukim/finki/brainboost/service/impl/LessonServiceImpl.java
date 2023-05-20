@@ -28,6 +28,21 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
+    public void edit(Long lessonId, Long courseId, String name, byte[] content) {
+        Course course = courseService.findById(courseId)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + courseId));
+
+        Lesson lesson = lessonRepository.findById(lessonId)
+                .orElseThrow(() -> new EntityNotFoundException("Lesson not found with id: " + lessonId));
+
+        lesson.setName(name);
+        lesson.setCourse(course);
+        lesson.setContent(content);
+
+        lessonRepository.save(lesson);
+    }
+
+    @Override
     public void delete (Long courseId, Long lessonId) {
         Lesson lesson = lessonRepository.findByCourseIdAndId (courseId, lessonId);
         lessonRepository.delete (lesson);
