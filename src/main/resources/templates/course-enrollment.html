@@ -104,7 +104,7 @@
                 <tr>
                     <th>Course name</th>
                     <th>Mentor</th>
-                    <th>Progress</th>
+                    <th>Date Enrolled</th>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -122,11 +122,7 @@
                     <td th:text="${course.getCourse().getTeacher()}">
                         <i class="fa-solid fa-user"></i>
                     </td>
-                    <td>
-                        80% done
-                        <div class="progress-background">
-                            <div class="progress-color"></div>
-                        </div>
+                    <td th:text="${course.getDateEnrolled()}">
                     </td>
                     <td><i class="fa-solid fa-ellipsis"></i></td>
                 </tr>
