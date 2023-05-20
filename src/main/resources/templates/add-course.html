@@ -65,17 +65,19 @@
                 </div>
                 <div class="w-75 justify-content-end">
 
-                        <div class="mb-2">Courses logo</div>
-                        <input type="text" class="w-100 add-courses_input" name="image"
-                               th:value="(${course}!=null ? ${course.getImage()} : '')">
+                    <div class="mb-2">Courses logo</div>
+                    <input type="text" class="w-100 add-courses_input" name="image"
+                           th:value="(${course}!=null ? ${course.getImage()} : '')">
 
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="row w-90 text-end d-flex justify-content-end mb-5">
-        <button class="btn save-button text-white pl-3 pr-3 " type="submit">SAVE</button>
+    <div class="row w-100 ml-5 text-end d-flex justify-content-center mb-5">
+        <div class="w-25 d-flex justify-content-end">
+            <button class="btn save-button text-white pr-3 " type="submit">SAVE</button>
+        </div>
     </div>
 </form>
 
