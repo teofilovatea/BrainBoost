@@ -183,6 +183,20 @@ public class CoursesController {
         return new RedirectView("/all_courses/details/{courseId}");
     }
 
+    @PostMapping("/{courseId}/disenroll")
+    public RedirectView disenrollUserFromCourse (@PathVariable Long courseId, Principal principal, RedirectAttributes redirectAttributes) {
+        Course course = courseRepository.findById (courseId).get ();
+        String username = principal.getName ();
+        User user = userRepository.findByUsername (username).get ();
+
+
+        Enrollment enrollment = enrollmentRepository.findByUserAndCourse (user, course);
+        enrollmentRepository.delete (enrollment);
+
+        redirectAttributes.addFlashAttribute ("courseId", courseId);
+        return new RedirectView ("/all_courses/details/{courseId}");
+    }
+
 }
 
 
