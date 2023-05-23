@@ -83,14 +83,6 @@ public class QuizController {
 
         return "redirect:/quizzes/" + savedQuiz.getId(); // Redirect to the newly created quiz's page
     }
-    @PostMapping("/submit-quiz/{quizId}")
-    public String showQuizDetails(@PathVariable Long quizId) {
-        Quiz quiz = quizRepository.findById(quizId).orElseThrow(RuntimeException::new);
-        LocalDate localDate = LocalDate.now();
-        quiz.setDateFinished(localDate);
-        quizRepository.save(quiz);
-        return "successfully-finished";
-    }
 
     @PostMapping("/{quizId}/delete/{courseId}")
     public String deleteQuizForCourse(@PathVariable("quizId") Long quizId,

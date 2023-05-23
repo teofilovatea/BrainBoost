@@ -68,3 +68,24 @@
 </div>
 </body>
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.3/dist/sweetalert2.all.min.js"></script>
+<script>
+    const submitBtn = document.querySelector('.submit-btn');
+
+    submitBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Congratulations!',
+            text: 'Successfully finished.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.querySelector('form').submit();
+                window.location.href = "/all_courses";
+            }
+        });
+    });
+</script>
