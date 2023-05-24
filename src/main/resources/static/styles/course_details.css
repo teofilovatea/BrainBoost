@@ -211,3 +211,21 @@ i {
     pointer-events: none;
     opacity: 0.5;
 }
+
+.delete-btn {
+    border: none;
+    background: none;
+}
+
+.delete-btn > i {
+    font-size: 1.0rem;
+    display: inline;
+}
+
+.edit{
+    color: var(--grey-color);
+    font-size: 1.0rem;
+    display: inline;
+    border: none;
+    background: none;
+}

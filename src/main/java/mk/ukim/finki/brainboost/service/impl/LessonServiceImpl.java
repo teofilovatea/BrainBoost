@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class LessonServiceImpl implements LessonService {
     private LessonRepository lessonRepository;
-    private CourseService courseService;
+    private CourseService  courseService;
 
     public LessonServiceImpl (LessonRepository lessonRepository, CourseService courseService) {
         this.lessonRepository = lessonRepository;
@@ -22,9 +22,21 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public void save (Long courseId, String name, byte[] content) {
+    public Optional<Lesson> save (Long courseId, String name, byte[] content) {
         Course course = courseService.findById (courseId).orElseThrow (EntityNotFoundException::new);
-        lessonRepository.save (new Lesson (name, course, content));
+        return Optional.of(this.lessonRepository.save(new Lesson(name,course,content)));
+    }
+
+    @Override
+    public Optional<Lesson> edit(Long lessonId, Long courseId, String name, byte[] content) {
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(EntityNotFoundException::new);
+        Course course = courseService.findById(courseId).orElseThrow(EntityNotFoundException::new);
+
+        lesson.setName(name);
+        lesson.setCourse(course);
+        lesson.setContent(content);
+
+        return Optional.of(this.lessonRepository.save(lesson));
     }
 
     @Override
