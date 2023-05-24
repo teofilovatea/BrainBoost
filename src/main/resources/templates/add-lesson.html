@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add new leassons</title>
+    <title>Add/Edit lessons</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" th:href="@{/styles/course_details.css}">
     <link rel="stylesheet" th:href="@{/styles/add-lessons.css}">
@@ -35,6 +35,7 @@
         <div class="upper-main container mt-4">
             <h1 th:if="${lessons} == null">Add new Lessons</h1>
             <h1 th:if="${lessons} != null">Edit the lesson</h1>
+            <input id="id" type="hidden" name="id" th:value="(${lessons} != null ? ${lessons.getId()} : '')">
             <div class="w-100 mb-4">
                 <div class="mb-2">Name</div>
                 <input type="text"
@@ -48,6 +49,7 @@
                        class="form-control"
                        id="fileImage"
                        name="file"
+                       th:value="(${lessons} != null ? ${lessons.getPdf()} : '')"
                        accept="application/pdf"/>
             </div>
 

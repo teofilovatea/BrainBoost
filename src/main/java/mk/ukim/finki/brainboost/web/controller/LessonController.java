@@ -35,14 +35,14 @@ public class LessonController {
 
     @PostMapping("/courses/{courseId}")
     public String addLesson (@PathVariable("courseId") Long courseId,
-                             @PathVariable(value = "lessonId", required = false) Long lessonId,
+                             @RequestParam(required = false) Long id,
                              @RequestParam("name") String name,
                              @RequestParam("file") MultipartFile file) {
         try {
-            if(lessonId != null){
-                lessonService.edit(lessonId,courseId,name,file.getBytes());
+            if(id != null){
+                lessonService.edit(id,courseId,name,file.getBytes());
             }else {
-                lessonService.save (courseId, name, file.getBytes());
+                lessonService.save(courseId, name, file.getBytes());
             }
             return "redirect:/all_courses/details/"+courseId;
         } catch (IOException e) {

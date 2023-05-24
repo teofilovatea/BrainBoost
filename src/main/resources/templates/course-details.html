@@ -49,7 +49,7 @@
                     <a th:href="@{'/lessons/pdf/{id}' (id=${lesson.getId()})}" class="text-center" th:text="${lesson.getName()}"></a>
                 </div>
                 <div class="pl-2">
-                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/lessons/{coursesId}/edit-form/{lessonId}' (coursesId=${course.id}, lessonId=${lesson.id})}"
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/lessons/{lessonId}/edit' (lessonId=${lesson.getId()})}"
                        class="edit">
                         <i class="fa fa-pen-to-square edit"></i>
                     </a>
