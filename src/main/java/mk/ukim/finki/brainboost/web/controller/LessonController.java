@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/lessons")
@@ -33,14 +35,33 @@ public class LessonController {
 
     @PostMapping("/courses/{courseId}")
     public String addLesson (@PathVariable("courseId") Long courseId,
+                             @PathVariable(value = "lessonId", required = false) Long lessonId,
                              @RequestParam("name") String name,
                              @RequestParam("file") MultipartFile file) {
         try {
-            lessonService.save (courseId, name, file.getBytes());
-            return "redirect:/all_courses/details/" + courseId;
+            if(lessonId != null){
+                lessonService.edit(lessonId,courseId,name,file.getBytes());
+            }else {
+                lessonService.save (courseId, name, file.getBytes());
+            }
+            return "redirect:/all_courses/details/"+courseId;
         } catch (IOException e) {
             throw new RuntimeException (e);
         }
+    }
+
+    @GetMapping("/{lessonId}/edit")
+    public String editLessonPage(Model model, @PathVariable("lessonId") Long lessonId) {
+        Optional<Lesson> lesson = lessonService.findById(lessonId);
+
+        if (lesson.isPresent()){
+            Lesson lessonData = lesson.get();
+            model.addAttribute("lessons", lessonData);
+            model.addAttribute("courseId", lessonData.getCourse().getId());
+            model.addAttribute("content", new String(lessonData.getContent()));
+            return "add-lesson";
+        }
+        return "redirect:/all_courses/details/?error=LessonNotFound";
     }
 
     @PostMapping("/courses/{courseId}/lessons/{lessonId}")

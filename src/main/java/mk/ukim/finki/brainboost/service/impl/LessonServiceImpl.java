@@ -22,24 +22,21 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public void save (Long courseId, String name, byte[] content) {
+    public Optional<Lesson> save (Long courseId, String name, byte[] content) {
         Course course = courseService.findById (courseId).orElseThrow (EntityNotFoundException::new);
-        lessonRepository.save (new Lesson (name, course, content));
+        return Optional.of(this.lessonRepository.save(new Lesson(name,course,content)));
     }
 
     @Override
-    public void edit(Long lessonId, Long courseId, String name, byte[] content) {
-        Course course = courseService.findById(courseId)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + courseId));
-
-        Lesson lesson = lessonRepository.findById(lessonId)
-                .orElseThrow(() -> new EntityNotFoundException("Lesson not found with id: " + lessonId));
+    public Optional<Lesson> edit(Long lessonId, Long courseId, String name, byte[] content) {
+        Lesson lesson = lessonRepository.findById(lessonId).orElseThrow(EntityNotFoundException::new);
+        Course course = courseService.findById(courseId).orElseThrow(EntityNotFoundException::new);
 
         lesson.setName(name);
         lesson.setCourse(course);
         lesson.setContent(content);
 
-        lessonRepository.save(lesson);
+        return Optional.of(this.lessonRepository.save(lesson));
     }
 
     @Override
