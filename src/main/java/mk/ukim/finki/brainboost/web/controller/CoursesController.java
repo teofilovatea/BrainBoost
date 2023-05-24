@@ -144,6 +144,14 @@ public class CoursesController {
                 .collect(Collectors.toList());
         model.addAttribute("courses", this.courseService.listAll());
         model.addAttribute("enrollments", enrollments);
+
+        User user = this.userRepository.findByUsername(username).orElseThrow();
+        int finishedQuizzes = quizRepository.getPassedQuizCountByStudentId(user.getId());
+        int startedCourses = enrollmentRepository.getEnrollmentCountByUser(user.getId());
+
+        model.addAttribute("finishedQuizzes", finishedQuizzes);
+        model.addAttribute("startedCourses", startedCourses);
+        model.addAttribute("percentFinished", (double) finishedQuizzes / startedCourses * 100);
         return "course-enrollment";
     }
     @PostMapping("/{courseId}/enroll")
@@ -173,6 +181,20 @@ public class CoursesController {
 
         redirectAttributes.addFlashAttribute("courseId", courseId);
         return new RedirectView("/all_courses/details/{courseId}");
+    }
+
+    @PostMapping("/{courseId}/disenroll")
+    public RedirectView disenrollUserFromCourse (@PathVariable Long courseId, Principal principal, RedirectAttributes redirectAttributes) {
+        Course course = courseRepository.findById (courseId).get ();
+        String username = principal.getName ();
+        User user = userRepository.findByUsername (username).get ();
+
+
+        Enrollment enrollment = enrollmentRepository.findByUserAndCourse (user, course);
+        enrollmentRepository.delete (enrollment);
+
+        redirectAttributes.addFlashAttribute ("courseId", courseId);
+        return new RedirectView ("/all_courses/details/{courseId}");
     }
 
 }

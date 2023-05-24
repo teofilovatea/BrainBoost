@@ -55,17 +55,17 @@
                 <div class="container">
                     <div class="courses">
                         <i class="stat-icon fa-solid fa-book"></i>
-                        <span class="container-numbers">3</span>
-                        <p class="container-p">completed courses</p>
+                        <span class="container-numbers" th:text="${startedCourses}"></span>
+                        <p class="container-p">started courses</p>
                     </div>
                     <div class="quizzes">
                         <i class="stat-icon fa-solid fa-list-check"></i>
-                        <span class="container-numbers">6</span>
+                        <span class="container-numbers" th:text="${finishedQuizzes}"></span>
                         <p class="container-p">passed quizzes</p>
                     </div>
                     <div class="percentages">
                         <i class="stat-icon fa-solid fa-hourglass-half"></i>
-                        <span class="container-numbers">75%</span>
+                        <span class="container-numbers" th:text="${percentFinished} + '%'"></span>
                         <p class="container-p">total percentage done</p>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                 <tr>
                     <th>Course name</th>
                     <th>Mentor</th>
-                    <th>Progress</th>
+                    <th>Date Enrolled</th>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -122,11 +122,7 @@
                     <td th:text="${course.getCourse().getTeacher()}">
                         <i class="fa-solid fa-user"></i>
                     </td>
-                    <td>
-                        80% done
-                        <div class="progress-background">
-                            <div class="progress-color"></div>
-                        </div>
+                    <td th:text="${course.getDateEnrolled()}">
                     </td>
                     <td><i class="fa-solid fa-ellipsis"></i></td>
                 </tr>

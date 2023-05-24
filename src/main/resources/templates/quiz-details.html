@@ -1,15 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="utf-8">
     <title>Quiz Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/styles/quiz_details.css}">
 </head>
 <body>
-<h1 th:text="${quiz.name}"></h1>
-
-<form action="/quizzes/submit-quiz" method="get">
+<div class="content">
+    <header>
+        <h1 th:text="${quiz.name}"></h1>
+        <div class="right-header">
+            <span th:text ="'Hello, ' +  ${#authentication.getPrincipal().getUsername()}"></span>
+            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/all_courses/add-form'}" class="new-course-btn">+ NEW COURSE</a>
+            <div class="search-input">
+                <form th:action="@{/all_courses}" method="get">
+                    <input type="search" name="query" placeholder="Search..." th:value="${query}">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </form>
+            </div>
+            <a class="new-course-btn" href="/logout">
+                <i class="fa-solid fa-right-from-bracket" title="Logout"></i>
+            </a>
+        </div>
+    </header>
+    <div class="sidebar">
+        <a th:href="@{'/home'}"><img th:src="@{/images/home_images/logo.png}" alt="logo" class="logo"></a>
+        <br>
+        <a th:href="@{'/all_courses'}" class="sidebar-btn"><i class="fa-brands fa-dashcube" style="color: #ffffff;"></i></a>
+        <br><br>
+        <a th:href="@{'/all_courses/enrolled'}" class="sidebar-btn"><i class="fa-solid fa-graduation-cap" style="color: #ffffff;"></i></a>
+        <a th:href="@{'/favourite_list'}" class="sidebar-btn"><i class="fa-regular fa-lightbulb" style="color: #ffffff;"></i></a>
+        <a th:href="@{'/quizzes/{quizId}'  (quizId=${quiz.getId()})}" class="active-btn"><i class="fa-regular fa-message" style="color: #ffffff;"></i></a>
+        <br><br>
+        <div class="user-profile">
+            <a class="sidebar-btn"><i class="fa-regular fa-pen-to-square" style="color: #fcfcfc;"></i></a>
+            <a th:href="@{'/user_profile'}" class="sidebar-btn"><i class="fa-solid fa-circle-user" style="color: #bb6bd9;"></i></a>
+        </div>
+    </div>
+    <div class="sidepanel">
+        <a th:href="@{'/all_courses'}"><i class="fa-solid fa-arrow-left" style="color: #000000;"></i> back</a>
+        <div class="sidepanel-section">
+            <span>QUIZZES</span> <br>
+            <a th:href="@{'/quizzes/{quizId}'  (quizId=${quiz.getId()})}" class="quiz-btn"><i class="fa-solid fa-clipboard-question"></i>Quiz 1</a>
+            <a th:href="@{'/quizzes/{quizId}'  (quizId=${quiz.getId()})}" class="quiz-btn"><i class="fa-solid fa-clipboard-question"></i>Quiz 2</a>
+            <a th:href="@{'/quizzes/{quizId}'  (quizId=${quiz.getId()})}" class="quiz-btn"><i class="fa-solid fa-clipboard-question"></i>Quiz 3</a>
+            <a th:href="@{'/quizzes/{quizId}'  (quizId=${quiz.getId()})}" class="quiz-btn"><i class="fa-solid fa-clipboard-question"></i>Quiz 4</a>
+            <a th:href="@{'/quizzes/{quizId}'  (quizId=${quiz.getId()})}" class="quiz-btn"><i class="fa-solid fa-clipboard-question"></i>Quiz 5</a>
+        </div>
+    </div>
+<main>
+    <form th:action="@{'/quizzes/submit-quiz/{quizId}' (quizId=${quiz.getId()})}" method="post">
     <div th:each="question : ${questions}">
         <h3 th:text="${question.text}"></h3>
-        <ul>
+        <ul class="questions">
             <li th:each="answer : ${question.answers}">
                 <label>
                     <input type="radio" th:name="'question-' + ${question.id}" th:value="${answer}">
@@ -18,8 +62,9 @@
             </li>
         </ul>
     </div>
-
-    <button type="submit">Submit Quiz</button>
+    <button type="submit" class="submit-btn">Submit Quiz</button>
 </form>
+</main>
+</div>
 </body>
 </html>
